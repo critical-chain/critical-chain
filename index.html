@@ -40,9 +40,8 @@
 
 <div class="highlight highlight-source-shell"><pre>git clone https://github.com/mgechev/angular2-seed.git
 <span class="pl-c1">cd</span> angular2-seed
-npm install
-<span class="pl-c"># dev</span>
-npm run serve.dev</pre></div>
+npm install   <span class="pl-c"># clean npm cache &amp; delete node_modules folder if you get an error</span>
+npm start     <span class="pl-c"># start with --env dev</span></pre></div>
 
 <p><em>Does not rely on any global dependencies.</em></p>
 
@@ -50,40 +49,88 @@ npm run serve.dev</pre></div>
 <a id="directory-structure" class="anchor" href="#directory-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Directory Structure</h1>
 
 <pre><code>.
+├── LICENSE
+├── README.md
 ├── app
+│   ├── bootstrap.ts
 │   ├── components
 │   │   ├── about
 │   │   │   ├── about.html
 │   │   │   ├── about.ts
 │   │   │   └── about_spec.ts
+│   │   ├── app
+│   │   │   ├── app.css
+│   │   │   ├── app.html
+│   │   │   ├── app.ts
+│   │   │   └── app_spec.ts
 │   │   └── home
 │   │       ├── home.css
 │   │       ├── home.html
 │   │       ├── home.ts
 │   │       └── home_spec.ts
+│   ├── index.html
 │   ├── services
 │   │   ├── name_list.ts
-│   │   └── name_list_spec.ts
-│   ├── typings
-│   ├── app.css
-│   ├── app.html
-│   ├── app.ts
-│   ├── index.html
-│   └── init.ts
-├── dist
-│   ├── dev
-│   └── prod
-├── tools
-│   ├── tasks
-│   ├── utils.js
-│   └── workflow.config.js
-├── tsd_typings
-├── gulpfile.js
+│   │   └── name_list_spec.ts
+│   ├── system.config.js
+│   └── typings.d.ts
+├── gulpfile.ts
 ├── karma.conf.js
 ├── package.json
+├── test
+│   ├── components
+│   │   ├── about
+│   │   │   ├── about.js
+│   │   │   └── about_spec.js
+│   │   ├── app
+│   │   │   ├── app.js
+│   │   │   └── app_spec.js
+│   │   └── home
+│   │       ├── home.js
+│   │       └── home_spec.js
+│   └── services
+│       ├── name_list.js
+│       └── name_list_spec.js
 ├── test-main.js
+├── tools
+│   ├── config.ts
+│   ├── preinstall.js
+│   ├── tasks
+│   │   ├── build.csslib.dev.ts
+│   │   ├── build.fonts.ts
+│   │   ├── build.index.dev.ts
+│   │   ├── build.js.dev.ts
+│   │   ├── build.jslib.dev.ts
+│   │   ├── build.sass.dev.ts
+│   │   ├── build.test.ts
+│   │   ├── clean.ts
+│   │   ├── karma.start.ts
+│   │   ├── npm.ts
+│   │   ├── server.start.ts
+│   │   ├── tsd.ts
+│   │   ├── tslint.ts
+│   │   ├── watch.dev.ts
+│   │   ├── watch.serve.ts
+│   │   └── watch.test.ts
+│   ├── typings
+│   │   ├── connect-livereload.d.ts
+│   │   ├── gulp-load-plugins.d.ts
+│   │   ├── karma.d.ts
+│   │   ├── mini-lr.d.ts
+│   │   ├── ng2_test.d.ts
+│   │   ├── open.d.ts
+│   │   ├── run-sequence.d.ts
+│   │   ├── slash.d.ts
+│   │   └── yargs.d.ts
+│   ├── utils
+│   │   ├── server.ts
+│   │   ├── tasks-tools.ts
+│   │   ├── template-injectables.ts
+│   │   └── template-locals.ts
+│   └── utils.ts
 ├── tsconfig.json
-└── tsd.json
+├── tsd.json
+└── tslint.json
 </code></pre>
 
 <h1>
@@ -97,7 +144,7 @@ npm run serve.dev</pre></div>
 
 <p>Configure at runtime</p>
 
-<div class="highlight highlight-source-shell"><pre>npm run serve.dev -- --port 8080 --reload-port 4000 --base /my-app/</pre></div>
+<div class="highlight highlight-source-shell"><pre>npm start -- --port 8080 --reload-port 4000 --base /my-app/</pre></div>
 
 <h1>
 <a id="now-to-extend" class="anchor" href="#now-to-extend" aria-hidden="true"><span class="octicon octicon-link"></span></a>Now to extend?</h1>
@@ -105,19 +152,18 @@ npm run serve.dev</pre></div>
 <p>If you want to use your custom libraries:</p>
 
 <div class="highlight highlight-source-shell"><pre>npm install my-library --save
-vim gulpfile.js</pre></div>
+vim tools/config.js</pre></div>
 
-<p>Add reference to the installed library in <code>PATH.src.lib</code> into <code>./tools/workflow.config.js</code>.</p>
+<p>Add reference to the installed library in <code>PATH.src.jslib</code> (or whatever you like).</p>
 
 <h1>
 <a id="running-test" class="anchor" href="#running-test" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running test</h1>
 
-<div class="highlight highlight-source-shell"><pre><span class="pl-c"># In a single bash window</span>
-npm run <span class="pl-c1">test</span>
+<div class="highlight highlight-source-shell"><pre>npm <span class="pl-c1">test</span>
 
-<span class="pl-c"># Debug - In two bash windows</span>
-npm run karma      <span class="pl-c"># 1st window</span>
-npm run <span class="pl-c1">test</span>.dev   <span class="pl-c"># 2nd window</span></pre></div>
+<span class="pl-c"># Debug - In two different shell windows</span>
+npm run build.<span class="pl-c1">test</span>.watch      <span class="pl-c"># 1st window</span>
+npm run karma.start           <span class="pl-c"># 2nd window</span></pre></div>
 
 <h1>
 <a id="contributors" class="anchor" href="#contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributors</h1>
