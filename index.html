@@ -50,9 +50,14 @@ npm run docs      <span class="pl-c"># api document for app</span></pre></div>
 <a id="directory-structure" class="anchor" href="#directory-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Directory Structure</h1>
 
 <pre><code>.
+├── CONTRIBUTING.md
 ├── LICENSE
 ├── README.md
 ├── app
+│   ├── assets
+│   │   ├── img
+│   │   │   └── smile.png
+│   │   └── main.css
 │   ├── bootstrap.ts
 │   ├── components
 │   │   ├── about
@@ -70,11 +75,27 @@ npm run docs      <span class="pl-c"># api document for app</span></pre></div>
 │   │       ├── home.ts
 │   │       └── home_spec.ts
 │   ├── index.html
-│   ├── services
-│   │   ├── name_list.ts
-│   │   └── name_list_spec.ts
-│   ├── system.config.js
-│   └── typings.d.ts
+│   └── services
+│       ├── name_list.ts
+│       └── name_list_spec.ts
+├── appveyor.yml
+├── circle.yml
+├── dist
+│   └── dev
+│       ├── assets
+│       │   └── img
+│       │       └── smile.png
+│       ├── bootstrap.js
+│       ├── components
+│       │   ├── about
+│       │   │   └── about.js
+│       │   ├── app
+│       │   │   └── app.js
+│       │   └── home
+│       │       └── home.js
+│       ├── index.html
+│       └── services
+│           └── name_list.js
 ├── gulpfile.ts
 ├── karma.conf.js
 ├── package.json
@@ -95,20 +116,22 @@ npm run docs      <span class="pl-c"># api document for app</span></pre></div>
 ├── test-main.js
 ├── tools
 │   ├── config.ts
-│   ├── preinstall.js
 │   ├── tasks
-│   │   ├── build.csslib.dev.ts
-│   │   ├── build.docs.ts
-│   │   ├── build.fonts.ts
-│   │   ├── build.index.dev.ts
+│   │   ├── build.bundles.ts
+│   │   ├── build.deps.ts
+│   │   ├── build.docs.ts
+│   │   ├── build.html_css.prod.ts
+│   │   ├── build.img.dev.ts
+│   │   ├── build.index.ts
 │   │   ├── build.js.dev.ts
-│   │   ├── build.jslib.dev.ts
+│   │   ├── build.js.prod.ts
 │   │   ├── build.sass.dev.ts
 │   │   ├── build.test.ts
+│   │   ├── check.versions.ts
 │   │   ├── clean.ts
 │   │   ├── karma.start.ts
 │   │   ├── npm.ts
-│   │   ├── server.docs.ts
+│   │   ├── serve.docs.ts
 │   │   ├── server.start.ts
 │   │   ├── tsd.ts
 │   │   ├── tslint.ts
@@ -116,15 +139,6 @@ npm run docs      <span class="pl-c"># api document for app</span></pre></div>
 │   │   ├── watch.serve.ts
 │   │   └── watch.test.ts
 │   ├── typings
-│   │   ├── connect-livereload.d.ts
-│   │   ├── gulp-load-plugins.d.ts
-│   │   ├── karma.d.ts
-│   │   ├── tiny-lr.d.ts
-│   │   ├── ng2_test.d.ts
-│   │   ├── open.d.ts
-│   │   ├── run-sequence.d.ts
-│   │   ├── slash.d.ts
-│   │   └── yargs.d.ts
 │   ├── utils
 │   │   ├── server.ts
 │   │   ├── tasks-tools.ts
@@ -134,6 +148,7 @@ npm run docs      <span class="pl-c"># api document for app</span></pre></div>
 ├── tsconfig.json
 ├── tsd.json
 └── tslint.json
+
 </code></pre>
 
 <h1>
@@ -226,22 +241,22 @@ npm run karma.start           <span class="pl-c"># 2nd window</span></pre></div>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/johnjelinek"><img alt="johnjelinek" src="https://avatars.githubusercontent.com/u/873610?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/evanplaice"><img alt="evanplaice" src="https://avatars.githubusercontent.com/u/303159?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/ultrasonicsoft"><img alt="ultrasonicsoft" src="https://avatars.githubusercontent.com/u/4145169?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/johnjelinek"><img alt="johnjelinek" src="https://avatars.githubusercontent.com/u/873610?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/Brooooooklyn"><img alt="Brooooooklyn" src="https://avatars.githubusercontent.com/u/3468483?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/tandu"><img alt="tandu" src="https://avatars.githubusercontent.com/u/273313?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/markharding"><img alt="markharding" src="https://avatars.githubusercontent.com/u/851436?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/mjwwit"><img alt="mjwwit" src="https://avatars.githubusercontent.com/u/4455124?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/johnjelinek">johnjelinek</a></td>
 <td align="center"><a href="https://github.com/evanplaice">evanplaice</a></td>
 <td align="center"><a href="https://github.com/ultrasonicsoft">ultrasonicsoft</a></td>
-<td align="center"><a href="https://github.com/johnjelinek">johnjelinek</a></td>
+<td align="center"><a href="https://github.com/Brooooooklyn">Brooooooklyn</a></td>
 <td align="center"><a href="https://github.com/tandu">tandu</a></td>
 <td align="center"><a href="https://github.com/markharding">markharding</a></td>
-<td align="center"><a href="https://github.com/mjwwit">mjwwit</a></td>
 </tr>
 </tbody>
 </table>
@@ -249,22 +264,22 @@ npm run karma.start           <span class="pl-c"># 2nd window</span></pre></div>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/mjwwit"><img alt="mjwwit" src="https://avatars.githubusercontent.com/u/4455124?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/ocombe"><img alt="ocombe" src="https://avatars.githubusercontent.com/u/265378?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/philipooo"><img alt="philipooo" src="https://avatars.githubusercontent.com/u/1702399?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/redian"><img alt="redian" src="https://avatars.githubusercontent.com/u/816941?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/robertpenner"><img alt="robertpenner" src="https://avatars.githubusercontent.com/u/79827?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/sclausen"><img alt="sclausen" src="https://avatars.githubusercontent.com/u/916076?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/butterfieldcons"><img alt="butterfieldcons" src="https://avatars.githubusercontent.com/u/12204784?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/jgolla"><img alt="jgolla" src="https://avatars.githubusercontent.com/u/1542447?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/mjwwit">mjwwit</a></td>
+<td align="center"><a href="https://github.com/ocombe">ocombe</a></td>
 <td align="center"><a href="https://github.com/philipooo">philipooo</a></td>
 <td align="center"><a href="https://github.com/redian">redian</a></td>
 <td align="center"><a href="https://github.com/robertpenner">robertpenner</a></td>
 <td align="center"><a href="https://github.com/sclausen">sclausen</a></td>
-<td align="center"><a href="https://github.com/butterfieldcons">butterfieldcons</a></td>
-<td align="center"><a href="https://github.com/jgolla">jgolla</a></td>
 </tr>
 </tbody>
 </table>
@@ -272,11 +287,15 @@ npm run karma.start           <span class="pl-c"># 2nd window</span></pre></div>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/butterfieldcons"><img alt="butterfieldcons" src="https://avatars.githubusercontent.com/u/12204784?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/jgolla"><img alt="jgolla" src="https://avatars.githubusercontent.com/u/1542447?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/dstockhammer"><img alt="dstockhammer" src="https://avatars.githubusercontent.com/u/1156637?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/butterfieldcons">butterfieldcons</a></td>
+<td align="center"><a href="https://github.com/jgolla">jgolla</a></td>
 <td align="center"><a href="https://github.com/dstockhammer">dstockhammer</a></td>
 </tr>
 </tbody>
