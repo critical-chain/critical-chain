@@ -31,8 +31,6 @@
 
 <p>It is something similar to the AngularJS Quick Start but does the entire build with gulp.</p>
 
-<p><strong>Note:</strong> Angular 2.0 is not production ready yet! This seed project is perfect for playing around with the latest versions but do not start new projects with it since a lot of new changes are going to be introduced until the framework is officially released.</p>
-
 <h1>
 <a id="how-to-start" class="anchor" href="#how-to-start" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to start</h1>
 
@@ -43,6 +41,11 @@
 npm install       <span class="pl-c"># or `npm run reinstall` if you get an error</span>
 npm start         <span class="pl-c"># start with --env dev</span>
 npm run docs      <span class="pl-c"># api document for app</span></pre></div>
+
+<p>If you want to try the experimental <a href="http://blog.mgechev.com/2015/10/26/angular2-hot-loader-hot-loading-tooling/">hot loading</a> support use:</p>
+
+<pre><code>npm start -- --hot-loader true
+</code></pre>
 
 <p><em>Does not rely on any global dependencies.</em></p>
 
@@ -166,14 +169,36 @@ npm run docs      <span class="pl-c"># api document for app</span></pre></div>
 <div class="highlight highlight-source-shell"><pre>npm start -- --port 8080 --reload-port 4000 --base /my-app/</pre></div>
 
 <h1>
-<a id="now-to-extend" class="anchor" href="#now-to-extend" aria-hidden="true"><span class="octicon octicon-link"></span></a>Now to extend?</h1>
+<a id="how-to-extend" class="anchor" href="#how-to-extend" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to extend?</h1>
 
 <p>If you want to use your custom libraries:</p>
 
 <div class="highlight highlight-source-shell"><pre>npm install my-library --save
-vim tools/config.js</pre></div>
+vim tools/config.ts</pre></div>
 
-<p>Add reference to the installed library in <code>PATH.src.jslib</code> (or whatever you like).</p>
+<p>Add reference to the installed library in <code>NPM_DEPENDENCIES</code>:</p>
+
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">export</span> <span class="pl-k">const</span> <span class="pl-v">NPM_DEPENDENCIES</span> <span class="pl-k">=</span> [
+  { src: <span class="pl-s">'systemjs/dist/system-polyfills.js'</span>, dest: LIB_DEST },
+
+
+  { src: <span class="pl-s">'bootstrap/dist/css/bootstrap.min.css'</span>, inject: <span class="pl-c1">true</span>, dest: CSS_DEST }
+  <span class="pl-c">// ...</span>
+  { src: <span class="pl-s">'my-library/dist/bundle.js'</span>, inject: <span class="pl-c1">true</span>, dest: LIB_DEST }
+];
+</pre></div>
+
+<ul>
+<li>
+<code>src</code> - relative to <code>node_modules</code>
+</li>
+<li>
+<code>inject</code> - indicates whether the library should be injected (if not you have to include it manually in <code>index.html</code>)</li>
+<li>
+<code>dest</code> - your library will be copied to this location. Used for the production build.</li>
+</ul>
+
+<p><strong>Do not forget to add a reference to the type definition inside the files where you use your custom library.</strong></p>
 
 <h1>
 <a id="running-test" class="anchor" href="#running-test" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running test</h1>
@@ -266,20 +291,20 @@ npm run karma.start           <span class="pl-c"># 2nd window</span></pre></div>
 <tr>
 <th align="center"><a href="https://github.com/mjwwit"><img alt="mjwwit" src="https://avatars.githubusercontent.com/u/4455124?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/ocombe"><img alt="ocombe" src="https://avatars.githubusercontent.com/u/265378?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/gdi2290"><img alt="gdi2290" src="https://avatars.githubusercontent.com/u/1016365?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/philipooo"><img alt="philipooo" src="https://avatars.githubusercontent.com/u/1702399?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/redian"><img alt="redian" src="https://avatars.githubusercontent.com/u/816941?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/robertpenner"><img alt="robertpenner" src="https://avatars.githubusercontent.com/u/79827?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/sclausen"><img alt="sclausen" src="https://avatars.githubusercontent.com/u/916076?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="center"><a href="https://github.com/mjwwit">mjwwit</a></td>
 <td align="center"><a href="https://github.com/ocombe">ocombe</a></td>
+<td align="center"><a href="https://github.com/gdi2290">gdi2290</a></td>
 <td align="center"><a href="https://github.com/philipooo">philipooo</a></td>
 <td align="center"><a href="https://github.com/redian">redian</a></td>
 <td align="center"><a href="https://github.com/robertpenner">robertpenner</a></td>
-<td align="center"><a href="https://github.com/sclausen">sclausen</a></td>
 </tr>
 </tbody>
 </table>
@@ -287,6 +312,7 @@ npm run karma.start           <span class="pl-c"># 2nd window</span></pre></div>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/sclausen"><img alt="sclausen" src="https://avatars.githubusercontent.com/u/916076?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/butterfieldcons"><img alt="butterfieldcons" src="https://avatars.githubusercontent.com/u/12204784?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/jgolla"><img alt="jgolla" src="https://avatars.githubusercontent.com/u/1542447?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/dstockhammer"><img alt="dstockhammer" src="https://avatars.githubusercontent.com/u/1156637?v=3&amp;s=117" width="117"></a></th>
@@ -294,6 +320,7 @@ npm run karma.start           <span class="pl-c"># 2nd window</span></pre></div>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/sclausen">sclausen</a></td>
 <td align="center"><a href="https://github.com/butterfieldcons">butterfieldcons</a></td>
 <td align="center"><a href="https://github.com/jgolla">jgolla</a></td>
 <td align="center"><a href="https://github.com/dstockhammer">dstockhammer</a></td>
