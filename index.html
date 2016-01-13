@@ -218,21 +218,19 @@ vim tools/config.ts</pre></div>
 <p>In this example we are going to add SASS support to the seed's dev build:</p>
 
 <ol>
-<li>Install <code>gulp-sass</code> as dependency:</li>
-</ol>
+<li>
+<p>Install <code>gulp-sass</code> as dependency:</p>
 
 <div class="highlight highlight-source-shell"><pre>npm install gulp-sass --save-dev</pre></div>
-
-<ol>
-<li>Add type definitions:</li>
-</ol>
+</li>
+<li>
+<p>Add type definitions:</p>
 
 <div class="highlight highlight-source-shell"><pre><span class="pl-c"># Note: tsd MUST be installed as global</span>
 tsd install gulp-sass --save</pre></div>
-
-<ol>
-<li>Add SASS task at <code>./tools/tasks/build.sass.dev.ts</code>:</li>
-</ol>
+</li>
+<li>
+<p>Add SASS task at <code>./tools/tasks/build.sass.dev.ts</code>:</p>
 
 <div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {join} from <span class="pl-s">'path'</span>;
 <span class="pl-k">import</span> {APP_SRC, APP_DEST} from <span class="pl-s">'../config'</span>;
@@ -244,10 +242,9 @@ tsd install gulp-sass --save</pre></div>
       .pipe(gulp.dest(APP_DEST));
   };
 }</pre></div>
-
-<ol>
-<li>Add <code>build.sass.dev</code> to your dev pipeline:</li>
-</ol>
+</li>
+<li>
+<p>Add <code>build.sass.dev</code> to your dev pipeline:</p>
 
 <div class="highlight highlight-source-ts"><pre><span class="pl-c">// gulpfile.ts</span>
 ...
@@ -263,6 +260,8 @@ gulp.task(<span class="pl-s">'build.dev'</span>, done <span class="pl-k">=&gt;</
               done));
 ...
 </pre></div>
+</li>
+</ol>
 
 <h1>
 <a id="running-test" class="anchor" href="#running-test" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running test</h1>
@@ -340,20 +339,20 @@ npm run e2e-live</pre></div>
 <tr>
 <th align="center"><a href="https://github.com/ryzy"><img alt="ryzy" src="https://avatars.githubusercontent.com/u/994940?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/natarajanmca11"><img alt="natarajanmca11" src="https://avatars.githubusercontent.com/u/9244766?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/larsthorup"><img alt="larsthorup" src="https://avatars.githubusercontent.com/u/1202959?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/jerryorta-dev"><img alt="jerryorta-dev" src="https://avatars.githubusercontent.com/u/341155?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/JakePartusch"><img alt="JakePartusch" src="https://avatars.githubusercontent.com/u/6424140?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/ouq77"><img alt="ouq77" src="https://avatars.githubusercontent.com/u/1796191?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/larsthorup"><img alt="larsthorup" src="https://avatars.githubusercontent.com/u/1202959?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="center"><a href="https://github.com/ryzy">ryzy</a></td>
 <td align="center"><a href="https://github.com/natarajanmca11">natarajanmca11</a></td>
-<td align="center"><a href="https://github.com/larsthorup">larsthorup</a></td>
 <td align="center"><a href="https://github.com/jerryorta-dev">jerryorta-dev</a></td>
 <td align="center"><a href="https://github.com/JakePartusch">JakePartusch</a></td>
 <td align="center"><a href="https://github.com/ouq77">ouq77</a></td>
+<td align="center"><a href="https://github.com/larsthorup">larsthorup</a></td>
 </tr>
 </tbody>
 </table>
@@ -363,20 +362,20 @@ npm run e2e-live</pre></div>
 <tr>
 <th align="center"><a href="https://github.com/TuiKiken"><img alt="TuiKiken" src="https://avatars.githubusercontent.com/u/959821?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/justindujardin"><img alt="justindujardin" src="https://avatars.githubusercontent.com/u/101493?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/dwido"><img alt="dwido" src="https://avatars.githubusercontent.com/u/154235?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/sclausen"><img alt="sclausen" src="https://avatars.githubusercontent.com/u/916076?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/johnjelinek"><img alt="johnjelinek" src="https://avatars.githubusercontent.com/u/873610?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/dstockhammer"><img alt="dstockhammer" src="https://avatars.githubusercontent.com/u/1156637?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/Bigous"><img alt="Bigous" src="https://avatars.githubusercontent.com/u/6886560?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/evanplaice"><img alt="evanplaice" src="https://avatars.githubusercontent.com/u/303159?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/johnjelinek"><img alt="johnjelinek" src="https://avatars.githubusercontent.com/u/873610?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="center"><a href="https://github.com/TuiKiken">TuiKiken</a></td>
 <td align="center"><a href="https://github.com/justindujardin">justindujardin</a></td>
-<td align="center"><a href="https://github.com/dwido">dwido</a></td>
-<td align="center"><a href="https://github.com/sclausen">sclausen</a></td>
-<td align="center"><a href="https://github.com/johnjelinek">johnjelinek</a></td>
 <td align="center"><a href="https://github.com/dstockhammer">dstockhammer</a></td>
+<td align="center"><a href="https://github.com/Bigous">Bigous</a></td>
+<td align="center"><a href="https://github.com/evanplaice">evanplaice</a></td>
+<td align="center"><a href="https://github.com/johnjelinek">johnjelinek</a></td>
 </tr>
 </tbody>
 </table>
@@ -384,22 +383,22 @@ npm run e2e-live</pre></div>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/briantopping"><img alt="briantopping" src="https://avatars.githubusercontent.com/u/158115?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/lihaibh"><img alt="lihaibh" src="https://avatars.githubusercontent.com/u/4681233?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/Brooooooklyn"><img alt="Brooooooklyn" src="https://avatars.githubusercontent.com/u/3468483?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/tandu"><img alt="tandu" src="https://avatars.githubusercontent.com/u/273313?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/markharding"><img alt="markharding" src="https://avatars.githubusercontent.com/u/851436?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/mjwwit"><img alt="mjwwit" src="https://avatars.githubusercontent.com/u/4455124?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/ocombe"><img alt="ocombe" src="https://avatars.githubusercontent.com/u/265378?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/briantopping">briantopping</a></td>
 <td align="center"><a href="https://github.com/lihaibh">lihaibh</a></td>
 <td align="center"><a href="https://github.com/Brooooooklyn">Brooooooklyn</a></td>
 <td align="center"><a href="https://github.com/tandu">tandu</a></td>
 <td align="center"><a href="https://github.com/markharding">markharding</a></td>
 <td align="center"><a href="https://github.com/mjwwit">mjwwit</a></td>
-<td align="center"><a href="https://github.com/ocombe">ocombe</a></td>
 </tr>
 </tbody>
 </table>
@@ -407,22 +406,22 @@ npm run e2e-live</pre></div>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/ocombe"><img alt="ocombe" src="https://avatars.githubusercontent.com/u/265378?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/gdi2290"><img alt="gdi2290" src="https://avatars.githubusercontent.com/u/1016365?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/typekpb"><img alt="typekpb" src="https://avatars.githubusercontent.com/u/499820?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/philipooo"><img alt="philipooo" src="https://avatars.githubusercontent.com/u/1702399?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/redian"><img alt="redian" src="https://avatars.githubusercontent.com/u/816941?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/robertpenner"><img alt="robertpenner" src="https://avatars.githubusercontent.com/u/79827?v=3&amp;s=117" width="117"></a></th>
-<th align="center"><a href="https://github.com/evanplaice"><img alt="evanplaice" src="https://avatars.githubusercontent.com/u/303159?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/dwido"><img alt="dwido" src="https://avatars.githubusercontent.com/u/154235?v=3&amp;s=117" width="117"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/ocombe">ocombe</a></td>
 <td align="center"><a href="https://github.com/gdi2290">gdi2290</a></td>
 <td align="center"><a href="https://github.com/typekpb">typekpb</a></td>
 <td align="center"><a href="https://github.com/philipooo">philipooo</a></td>
 <td align="center"><a href="https://github.com/redian">redian</a></td>
-<td align="center"><a href="https://github.com/robertpenner">robertpenner</a></td>
-<td align="center"><a href="https://github.com/evanplaice">evanplaice</a></td>
+<td align="center"><a href="https://github.com/dwido">dwido</a></td>
 </tr>
 </tbody>
 </table>
@@ -430,6 +429,8 @@ npm run e2e-live</pre></div>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/robertpenner"><img alt="robertpenner" src="https://avatars.githubusercontent.com/u/79827?v=3&amp;s=117" width="117"></a></th>
+<th align="center"><a href="https://github.com/sclausen"><img alt="sclausen" src="https://avatars.githubusercontent.com/u/916076?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/butterfieldcons"><img alt="butterfieldcons" src="https://avatars.githubusercontent.com/u/12204784?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/jgolla"><img alt="jgolla" src="https://avatars.githubusercontent.com/u/1542447?v=3&amp;s=117" width="117"></a></th>
 <th align="center"><a href="https://github.com/ultrasonicsoft"><img alt="ultrasonicsoft" src="https://avatars.githubusercontent.com/u/4145169?v=3&amp;s=117" width="117"></a></th>
@@ -437,6 +438,8 @@ npm run e2e-live</pre></div>
 </thead>
 <tbody>
 <tr>
+<td align="center"><a href="https://github.com/robertpenner">robertpenner</a></td>
+<td align="center"><a href="https://github.com/sclausen">sclausen</a></td>
 <td align="center"><a href="https://github.com/butterfieldcons">butterfieldcons</a></td>
 <td align="center"><a href="https://github.com/jgolla">jgolla</a></td>
 <td align="center"><a href="https://github.com/ultrasonicsoft">ultrasonicsoft</a></td>
