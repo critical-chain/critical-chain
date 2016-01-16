@@ -6,5 +6,11 @@ test:
   override:
     - npm test
 
+deployment:
+  gh-pages:
+    branch: master
+    commands:
+      - npm run deploy
+
 
 

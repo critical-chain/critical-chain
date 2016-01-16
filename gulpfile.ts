@@ -42,6 +42,13 @@ gulp.task('build.prod', done =>
               done));
 
 // --------------
+// Deploy production to th github-pages
+gulp.task('deploy', done =>
+  runSequence('build.prod',
+              'deployToGithub',
+              done));
+
+// --------------
 // Watch.
 gulp.task('build.dev.watch', done =>
   runSequence('build.dev',

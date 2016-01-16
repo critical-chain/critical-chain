@@ -39,3 +39,4 @@ lib
 test
 tools/typings/tsd
 tmp
+/.publish/
