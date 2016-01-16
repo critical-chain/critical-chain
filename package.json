@@ -11,7 +11,7 @@
     "build.prod": "gulp build.prod --env prod",
     "build.test": "gulp build.test",
     "build.test.watch": "gulp build.test.watch",
-    "deploy": "npm run gulp deploy",
+    "deploy": "gulp deploy --env prod",
     "docs": "npm run gulp -- build.docs && npm run gulp -- serve.docs",
     "e2e": "protractor",
     "e2e-live": "protractor --elementExplorer",
