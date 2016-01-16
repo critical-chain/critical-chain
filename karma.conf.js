@@ -51,6 +51,10 @@ module.exports = function(config) {
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['mocha'],
 
+    junitReporter: {
+      suite: 'KarmaJS'
+    },
+
 
     // web server port
     port: 9876,
@@ -72,8 +76,7 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
-      'PhantomJS2',
-      //'Chrome'
+      'PhantomJS2'
     ],
 
 
@@ -99,5 +102,8 @@ module.exports = function(config) {
   if (process.env.TRAVIS || process.env.CIRCLECI) {
     config.browsers = ['Chrome_travis_ci'];
     config.singleRun = true;
+
+    config.reporters.push('junit');
+    config.junitReporter.outputDir = process.env.CIRCLE_TEST_REPORTS;
   }
 };
