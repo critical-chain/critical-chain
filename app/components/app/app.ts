@@ -7,6 +7,7 @@ import {
 
 import {HomeCmp} from '../home/home';
 import {AboutCmp} from '../about/about';
+import {EstimationsCmp} from '../estimations/estimations';
 import {NameList} from '../../services/name_list';
 
 @Component({
@@ -19,6 +20,7 @@ import {NameList} from '../../services/name_list';
 })
 @RouteConfig([
   { path: '/', component: HomeCmp, as: 'Home' },
-  { path: '/about', component: AboutCmp, as: 'About' }
+  { path: '/about', component: AboutCmp, as: 'About' },
+  { path: '/estimations', component: EstimationsCmp, as: 'Estimations' }
 ])
 export class AppCmp {}
