@@ -8,24 +8,22 @@ import {Estimation, EstimationService} from '../../services/estimations';
   viewProviders: [NgForm]
 })
 export class EstimationsCmp {
-  estimations: Estimation[];
-  estimationService: EstimationService;
+  estimations: EstimationService;
   newEstimation: Estimation = new Estimation('', undefined);
 
   newEstimationTitle: string;
   newEstimationValue: number;
 
   constructor(estimationService: EstimationService) {
-    this.estimations = estimationService.getEstimations();
-    this.estimationService = estimationService;
+    this.estimations = estimationService;
   };
 
   createEstimation(inputToFocus: any) {
-    this.estimationService.add(this.newEstimation);
+    this.estimations.add(this.newEstimation);
     this.newEstimation = new Estimation('', undefined);
     inputToFocus.focus();
   };
   removeEstimation(index) {
-    this.estimationService.remove(index);
+    this.estimations.remove(index);
   };
 }

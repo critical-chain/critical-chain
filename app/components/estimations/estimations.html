@@ -1,7 +1,7 @@
 <h1>Estimations</h1>
 
 <ul>
-  <li *ngFor="#estimation of estimations; #i=index">
+  <li *ngFor="#estimation of estimations.getEstimations(); #i=index">
     <input [(ngModel)]="estimation.title" />
     <input [(ngModel)]="estimation.value" />
     <button (click)="removeEstimation(i)">×</button>
