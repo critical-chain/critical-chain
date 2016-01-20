@@ -1,1 +1,12 @@
 <h1>Estimations</h1>
+
+<ul>
+  <li *ngFor="#estimation of estimations">
+    <input [(ngModel)]="estimation.title" />
+    <input [(ngModel)]="estimation.value" />
+  </li>
+</ul>
+
+<input [(ngModel)]="newEstimationTitle" />
+<input [(ngModel)]="newEtimationValue" />
+<button (click)="createEstimation()">Add!</button>
