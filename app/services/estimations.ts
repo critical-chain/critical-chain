@@ -18,7 +18,11 @@ export class EstimationService {
     return this.values;
   };
 
+  add(estimation: Estimation) {
+    this.values.push(estimation);
+  };
+
   remove(i: number) {
     this.values.splice(i, 1);
-  }
+  };
 }

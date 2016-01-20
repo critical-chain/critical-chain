@@ -21,7 +21,7 @@ export class EstimationsCmp {
   };
 
   createEstimation(inputToFocus: any) {
-    this.estimations.push(this.newEstimation);
+    this.estimationService.add(this.newEstimation);
     this.newEstimation = new Estimation('', undefined);
     inputToFocus.focus();
   };
