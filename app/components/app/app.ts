@@ -9,10 +9,12 @@ import {HomeCmp} from '../home/home';
 import {AboutCmp} from '../about/about';
 import {EstimationsCmp} from '../estimations/estimations';
 import {NameList} from '../../services/name_list';
+import {EstimationService} from '../../services/estimations';
 
 @Component({
   selector: 'app',
   viewProviders: [NameList],
+  providers: [EstimationService],
   templateUrl: './components/app/app.html',
   styleUrls: ['./components/app/app.css'],
   encapsulation: ViewEncapsulation.None,

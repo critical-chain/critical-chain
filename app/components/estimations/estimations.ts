@@ -3,9 +3,7 @@ import {Estimation, EstimationService} from '../../services/estimations';
 
 @Component({
   selector: 'estimations',
-  templateUrl: './components/estimations/estimations.html',
-  providers: [EstimationService]
-  //styleUrls: ['./components/home/home.css']
+  templateUrl: './components/estimations/estimations.html'
 })
 export class EstimationsCmp {
   estimations: Estimation[];
