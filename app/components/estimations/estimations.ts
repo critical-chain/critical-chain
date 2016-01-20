@@ -9,7 +9,7 @@ export class EstimationsCmp {
   estimations: Estimation[];
 
   newEstimationTitle: string;
-  newEstimationValue: string;
+  newEstimationValue: number;
 
   constructor(estimationService: EstimationService) {
     this.estimations = estimationService.getEstimations();
@@ -18,6 +18,6 @@ export class EstimationsCmp {
   createEstimation() {
     this.estimations.push(new Estimation(this.newEstimationTitle, +this.newEstimationValue));
     this.newEstimationTitle = '';
-    this.newEstimationValue = '';
+    this.newEstimationValue = undefined;
   };
 }
