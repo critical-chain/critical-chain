@@ -1,6 +1,8 @@
 var PouchDB = require('pouchdb/dist/pouchdb');
 
 export class Estimation {
+  public _id: string = '' + Date.now();
+  public _rev: string;
   constructor(
     public title: string,
     public value: number
@@ -30,7 +32,10 @@ export class EstimationService {
 
   add(estimation: Estimation) {
     this.values.push(estimation);
-    this.db.post(estimation);
+    this.db.put(estimation, Date.now())
+      .catch(function (err) {
+        console.log(err);
+      });
   };
 
   remove(i: number) {
