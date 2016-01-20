@@ -14,6 +14,8 @@ export class EstimationsCmp {
   newEstimationTitle: string;
   newEstimationValue: number;
 
+  timeouts = [];
+
   constructor(estimationService: EstimationService) {
     this.estimations = estimationService;
   };
@@ -26,4 +28,20 @@ export class EstimationsCmp {
   removeEstimation(index: number) {
     this.estimations.remove(index);
   };
+
+  trackChange(index: number) {
+    if (this.timeouts[index]) {
+      clearTimeout(this.timeouts[index]);
+    };
+
+    var estimations = this.estimations;
+
+    this.timeouts[index] = setTimeout(function(){
+      estimations.update(index);
+    }, 1000);
+  };
+
+  log(data) {
+    console.log(data);
+  }
 }

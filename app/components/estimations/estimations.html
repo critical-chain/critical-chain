@@ -2,11 +2,13 @@
 
 <ul>
   <li *ngFor="#estimation of estimations.getEstimations(); #i=index">
-    <input [(ngModel)]="estimation.title" />
-    <input [(ngModel)]="estimation.value" />
+    <input [(ngModel)]="estimation.title" (input)="trackChange(i)" />
+    <input [(ngModel)]="estimation.value" (input)="trackChange(i)" />
     <button (click)="removeEstimation(i)">×</button>
   </li>
 </ul>
+
+<button (click)="log(estimations.getEstimations())">Click me!</button>
 
 <form (ngSubmit)="createEstimation(titleInput)" #estimationForm="ngForm">
   <input type="text" required [(ngModel)]="newEstimation.title" #titleInput />
