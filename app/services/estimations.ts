@@ -17,4 +17,8 @@ export class EstimationService {
   getEstimations() {
     return this.values;
   };
+
+  remove(i: number) {
+    this.values.splice(i, 1);
+  }
 }

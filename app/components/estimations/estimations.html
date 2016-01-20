@@ -1,9 +1,10 @@
 <h1>Estimations</h1>
 
 <ul>
-  <li *ngFor="#estimation of estimations">
+  <li *ngFor="#estimation of estimations; #i=index">
     <input [(ngModel)]="estimation.title" />
     <input [(ngModel)]="estimation.value" />
+    <button (click)="removeEstimation(i)">×</button>
   </li>
 </ul>
 

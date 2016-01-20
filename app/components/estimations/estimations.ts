@@ -9,6 +9,7 @@ import {Estimation, EstimationService} from '../../services/estimations';
 })
 export class EstimationsCmp {
   estimations: Estimation[];
+  estimationService: EstimationService;
   newEstimation: Estimation = new Estimation('', undefined);
 
   newEstimationTitle: string;
@@ -16,10 +17,14 @@ export class EstimationsCmp {
 
   constructor(estimationService: EstimationService) {
     this.estimations = estimationService.getEstimations();
+    this.estimationService = estimationService;
   };
 
   createEstimation() {
     this.estimations.push(this.newEstimation);
     this.newEstimation = new Estimation('', undefined);
+  };
+  removeEstimation(index) {
+    this.estimationService.remove(index);
   };
 }
