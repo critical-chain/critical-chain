@@ -18,12 +18,12 @@ export class EstimationsCmp {
     this.estimations = estimationService;
   };
 
-  createEstimation(inputToFocus: any) {
+  createEstimation(inputToFocus) {
     this.estimations.add(this.newEstimation);
     this.newEstimation = new Estimation('', undefined);
     inputToFocus.focus();
   };
-  removeEstimation(index) {
+  removeEstimation(index: number) {
     this.estimations.remove(index);
   };
 }
