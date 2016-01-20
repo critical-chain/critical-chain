@@ -7,6 +7,10 @@
   </li>
 </ul>
 
-<input [(ngModel)]="newEstimationTitle" />
-<input [(ngModel)]="newEstimationValue" />
-<button (click)="createEstimation()">Add!</button>
+<form (ngSubmit)="createEstimation()" #estimationForm="ngForm">
+  <input type="text" required [(ngModel)]="newEstimation.title" />
+  <input type="text" required pattern="[0-9]*(\.[0-9]+)?" [(ngModel)]="newEstimation.value" />
+  <button type="submit" class="btn btn-default" [disabled]="!estimationForm.form.valid">
+    Add
+  </button>
+</form>

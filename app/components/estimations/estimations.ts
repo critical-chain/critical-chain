@@ -1,12 +1,15 @@
 import {Component} from 'angular2/core';
+import {NgForm} from 'angular2/common';
 import {Estimation, EstimationService} from '../../services/estimations';
 
 @Component({
   selector: 'estimations',
-  templateUrl: './components/estimations/estimations.html'
+  templateUrl: './components/estimations/estimations.html',
+  viewProviders: [NgForm]
 })
 export class EstimationsCmp {
   estimations: Estimation[];
+  newEstimation: Estimation = new Estimation('', undefined);
 
   newEstimationTitle: string;
   newEstimationValue: number;
@@ -16,8 +19,7 @@ export class EstimationsCmp {
   };
 
   createEstimation() {
-    this.estimations.push(new Estimation(this.newEstimationTitle, +this.newEstimationValue));
-    this.newEstimationTitle = '';
-    this.newEstimationValue = undefined;
+    this.estimations.push(this.newEstimation);
+    this.newEstimation = new Estimation('', undefined);
   };
 }
