@@ -20,9 +20,10 @@ export class EstimationsCmp {
     this.estimationService = estimationService;
   };
 
-  createEstimation() {
+  createEstimation(inputToFocus: any) {
     this.estimations.push(this.newEstimation);
     this.newEstimation = new Estimation('', undefined);
+    inputToFocus.focus();
   };
   removeEstimation(index) {
     this.estimationService.remove(index);
