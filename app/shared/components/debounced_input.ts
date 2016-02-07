@@ -1,11 +1,12 @@
-import {Component, Input, Output, EventEmitter, ElementRef} from 'angular2/core';
-import {FORM_DIRECTIVES} from 'angular2/common';
-import {Observable} from 'rxjs/Rx';
+import {Component, Input, Output, EventEmitter} from 'angular2/core';
+import {FORM_DIRECTIVES, Control} from 'angular2/common';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'debounce',
   directives: [FORM_DIRECTIVES],
-  template: '<input [type]="type" [class]="class" [placeholder]="placeholder" [(ngModel)]="inputValue" />'
+  template: '<input [type]="type" [class]="class" [placeholder]="placeholder" [ngFormControl]="input" />'
 })
 export class DebouncedInputComponent {
   @Input() type: string = 'text';
@@ -14,11 +15,10 @@ export class DebouncedInputComponent {
   @Input() delay: number = 500;
   @Output() value: EventEmitter<any> = new EventEmitter();
 
-  public inputValue: string;
+  input = new Control();
 
-  constructor(private elementRef: ElementRef) {
-    var eventStream = Observable.fromEvent(elementRef.nativeElement, 'change')
-                                .map(() => this.inputValue)
+  constructor() {
+    var eventStream = this.input.valueChanges
                                 .debounceTime(this.delay)
                                 .distinctUntilChanged();
 
