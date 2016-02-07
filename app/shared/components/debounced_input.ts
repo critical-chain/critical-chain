@@ -1,5 +1,6 @@
-import {Component, Input, Output, EventEmitter} from 'angular2/core';
+import {Component, Input, Output} from 'angular2/core';
 import {FORM_DIRECTIVES, Control} from 'angular2/common';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
@@ -13,15 +14,9 @@ export class DebouncedInputComponent {
   @Input() class: string = 'form-control debounce';
   @Input() placeholder: string;
   @Input() delay: number = 500;
-  @Output() value: EventEmitter<any> = new EventEmitter();
 
   input = new Control();
-
-  constructor() {
-    var eventStream = this.input.valueChanges
+  @Output() value: Observable<any> = this.input.valueChanges
                                 .debounceTime(this.delay)
                                 .distinctUntilChanged();
-
-    eventStream.subscribe(input => this.value.emit(input));
-  }
 }
