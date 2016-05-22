@@ -1,13 +1,21 @@
 import React from 'react';
+import EstimationItem from './EstimationItem'
 
 export default class CriticalChain extends React.Component {
   getItems() {
-    this.props.todos || [];
+    return this.props.todos || [];
   }
   render() {
     return <div className="grid-frame">
-      <div className="grid-block">One</div>
-      <div className="grid-block">Two</div>
+      <div className="grid-block">
+        <div className="grid-container medium-4">
+          {
+            this.getItems().map(item =>
+              <EstimationItem item={item} key={item.get('id')} />
+            )
+          }
+        </div>
+      </div>
     </div>;
   }
-}
+};
