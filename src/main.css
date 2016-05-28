@@ -1,0 +1,25 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700&subset=latin,cyrillic);
+
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  font-size: 18px;
+  line-height: 25px;
+}
+
+#applicationRoot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#applicationRoot>header {
+  width: 100%;
+  padding-bottom: 24px;
+}
+
+#applicationRoot>.column {
+  width: 28em;
+}
