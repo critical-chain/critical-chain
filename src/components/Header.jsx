@@ -1,4 +1,5 @@
 import React from 'react';
+import { IndexLink, hashHistory } from 'react-router'
 
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
@@ -13,23 +14,31 @@ export default class Header extends React.Component {
   getEstimations() {
     return this.props.estimations || [];
   }
+  navigateTo(estimation) {
+    hashHistory.push('/estimations/'+estimation.id);
+  }
+
   render() {
     return <header>
       <Toolbar>
-        <ToolbarGroup firstChild={true}>
+        <ToolbarGroup firstChild={true} className="toolbar" >
           <IconMenu iconButtonElement={<IconButton touch={true}><ActionToc /></IconButton>}>
-            {
-              this.getEstimations().map(estimation =>
-                <MenuItem key={'header-menu-' + estimation.get('id')} primaryText={estimation.get('title')}/>
-              )
-            }
+                    {
+                      this.getEstimations().map(estimation =>
+                        <MenuItem key={'header-menu-' + estimation.id}
+                                  primaryText={estimation.title} onTouchTap={() => this.navigateTo(estimation)}/>
+                      )
+                    }
           </IconMenu>
-          <ToolbarTitle text="Critical Chain"/>
+          <IndexLink to="/" activeClassName="disabled">
+            <ToolbarTitle text="Critical chain" />
+          </IndexLink>
         </ToolbarGroup>
         <ToolbarGroup lastChild={true}>
-          <FlatButton label="Log in to enable sync" icon={<ActionAccountCircle />} />
+          <FlatButton label="Log in to enable sync" icon={<ActionAccountCircle />}/>
         </ToolbarGroup>
       </Toolbar>
     </header>
   }
 }
+

@@ -19,6 +19,14 @@ body {
   width: 100%;
   padding-bottom: 24px;
 }
+#applicationRoot>header .toolbar>a {
+  text-decoration: none;
+}
+#applicationRoot>header .toolbar>a.disabled {
+  cursor: default;
+  color: black;
+  pointer-events: none;
+}
 
 #applicationRoot>.column {
   width: 28em;
