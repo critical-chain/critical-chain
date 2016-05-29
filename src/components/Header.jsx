@@ -1,5 +1,5 @@
 import React from 'react';
-import { IndexLink, hashHistory } from 'react-router'
+import { IndexLink, withRouter } from 'react-router'
 
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
@@ -10,12 +10,12 @@ import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle'
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   getEstimations() {
     return this.props.estimations || [];
   }
   navigateTo(estimation) {
-    hashHistory.push('/estimations/'+estimation.id);
+    this.props.router.push('/estimations/'+estimation.id);
   }
 
   render() {
@@ -42,3 +42,4 @@ export default class Header extends React.Component {
   }
 }
 
+export default withRouter(Header);
