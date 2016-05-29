@@ -5,14 +5,12 @@ import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 
+import EstimationValue from './EstimationValue';
+
 
 class EstimationsList extends React.Component {
   goTo(estimation) {
     this.props.router.push('/estimations/' + estimation.id);
-  }
-
-  calculateValue(estimation) {
-    return <span>{estimation.value}</span>
   }
 
   render() {
@@ -22,7 +20,7 @@ class EstimationsList extends React.Component {
         {
           this.props.estimations.map(estimation =>
             <ListItem primaryText={estimation.title} key={estimation.id}
-                      rightIcon={this.calculateValue(estimation)} onTouchTap={() => this.goTo(estimation)}/>
+                      secondaryText={<EstimationValue estimation={estimation}/>} onTouchTap={() => this.goTo(estimation)}/>
           )
         }
       </List>

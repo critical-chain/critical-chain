@@ -22,3 +22,16 @@ body {
   color: black;
   pointer-events: none;
 }
+
+.estimationValue {
+  color: #777777;
+}
+.estimationValue .base {
+  color: #3c763d;
+}
+.estimationValue .buffer {
+  color: #31708f;
+}
+.estimationValue .total {
+  color: #8a6d3b;
+}

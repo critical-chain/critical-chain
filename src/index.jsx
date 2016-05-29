@@ -29,16 +29,16 @@ store.dispatch({
   type: 'SET_STATE',
   state: {
     estimations: [{
-      id: 1, title: 'React', value: 12, steps: [
-        {id: 1, title: 'Раскочегарить'},
-        {id: 2, title: 'Накодить'},
-        {id: 3, title: 'Закомитить'}
+      id: 1, title: 'React', steps: [
+        {id: 1, title: 'Раскочегарить', value: 3},
+        {id: 2, title: 'Накодить', value: 8},
+        {id: 3, title: 'Закомитить', value: 4}
       ]
     },
     {
       id: 2, title: 'Redux', value: 9, steps: [
-        {id: 1, title: 'Подключить'},
-        {id: 2, title: 'Использовать'}
+        {id: 1, title: 'Подключить', value: 3},
+        {id: 2, title: 'Использовать', value: 4}
       ]
     }]
   }
@@ -53,11 +53,12 @@ const muiTheme = getMuiTheme({
 
 const App = React.createClass({
   render() {
+    var estimations = this.props.estimations || [];
     return <MuiThemeProvider muiTheme={muiTheme}>
         <div id="applicationRoot">
-          <Header estimations={this.props.estimations || []} />
+          <Header estimations={estimations} />
           {this.props.children && React.cloneElement(this.props.children, {
-            estimations: this.props.estimations || []
+            estimations: estimations
           })}
         </div>
       </MuiThemeProvider>
