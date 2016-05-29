@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router'
+import {withRouter} from 'react-router';
 
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
@@ -8,7 +8,7 @@ import Subheader from 'material-ui/Subheader';
 
 class EstimationsList extends React.Component {
   goTo(estimation) {
-    this.props.router.push('/estimations/'+estimation.id);
+    this.props.router.push('/estimations/' + estimation.id);
   }
 
   calculateValue(estimation) {
