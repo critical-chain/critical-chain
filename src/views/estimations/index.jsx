@@ -6,8 +6,8 @@ import AddEstimation from '../../components/AddEstimation'
 
 export default class EstimationsIndex extends React.Component {
   render() {
-    return <main className="row">
-      <div className="col-md-4 col-md-offset-4 col-xs-12">
+    return <main className="row center-md">
+      <div className="col-md-3 col-xs-12 start-md">
         <EstimationsList estimations={this.props.estimations}/>
         <AddEstimation />
       </div>

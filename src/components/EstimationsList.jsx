@@ -20,7 +20,8 @@ class EstimationsList extends React.Component {
         {
           this.props.estimations.map(estimation =>
             <ListItem primaryText={estimation.title} key={estimation.id}
-                      secondaryText={<EstimationValue estimation={estimation}/>} onTouchTap={() => this.goTo(estimation)}/>
+                      secondaryText={<div className="end-xs"><EstimationValue estimation={estimation}/></div>}
+                      onTouchTap={() => this.goTo(estimation)}/>
           )
         }
       </List>
