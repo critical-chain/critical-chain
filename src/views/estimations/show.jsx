@@ -37,7 +37,9 @@ class EstimationsShow extends React.Component {
         </Paper>
       </div>
       <div className="col-xs-12 col-md-3 col-md-offset-1">
-        <EstimationValue estimation={estimation}/>
+        <h1>
+          <EstimationValue estimation={estimation}/>
+        </h1>
       </div>
     </main>
   }
