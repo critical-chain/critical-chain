@@ -56,7 +56,7 @@ const App = React.createClass({
     var estimations = this.props.estimations || [];
     return <MuiThemeProvider muiTheme={muiTheme}>
         <div id="applicationRoot">
-          <Header estimations={estimations} />
+          <Header estimations={estimations} params={this.props.params} />
           {this.props.children && React.cloneElement(this.props.children, {
             estimations: estimations
           })}

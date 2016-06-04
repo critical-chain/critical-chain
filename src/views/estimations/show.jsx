@@ -17,7 +17,6 @@ class EstimationsShow extends React.Component {
 
   render() {
     var estimation = this.getEstimation();
-    console.log(estimation);
     if (estimation === undefined) {
       this.props.router.replace('/');
       return <div/>;
@@ -29,9 +28,7 @@ class EstimationsShow extends React.Component {
         <Paper>
           <List>
             {
-              estimation.steps.map((step => {
-                return <EstimationStep step={step}/>
-              }))
+              estimation.steps.map(step => <EstimationStep step={step} key={"step-" + step.id}/>)
             }
           </List>
         </Paper>
