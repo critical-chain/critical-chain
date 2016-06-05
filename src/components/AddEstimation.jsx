@@ -13,9 +13,11 @@ const styles = {
     marginBottom: '-20px'
   },
   textField: {
-    marginLeft: '16px',
-    marginRight: '-24px',
-    width: '91%'
+    margin: '0 16px',
+    width: 'calc(100% - 58px)'
+  },
+  actionButton: {
+    marginLeft: '-24px'
   }
 };
 
@@ -25,7 +27,7 @@ export default class AddEstimation extends React.Component {
     return <div style={styles.container} >
       <Subheader style={styles.subheader} >Add estimation</Subheader>
       <TextField style={styles.textField} hintText="Name your estimation"/>
-      <FloatingActionButton mini={true} >
+      <FloatingActionButton mini={true} style={styles.actionButton} >
         <ContentAdd />
       </FloatingActionButton>
     </div>
