@@ -40,3 +40,4 @@ lib
 tools/typings/tsd
 tmp
 /.publish/
+/dist/bundle.js
