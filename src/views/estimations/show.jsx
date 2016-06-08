@@ -33,6 +33,12 @@ class EstimationsShow extends React.Component {
   render() {
     var estimation = this.getEstimation();
     return <main className="row">
+      <div className="col-xs-12 col-md-3 col-md-offset-1 last-md">
+        <h1>
+          <EstimationValue estimation={estimation}/>
+        </h1>
+      </div>
+
       <div className="col-xs-12 col-md-6 col-md-offset-2">
         <h2>{estimation.get('title')}</h2>
         <Paper>
@@ -44,11 +50,6 @@ class EstimationsShow extends React.Component {
           </List>
         </Paper>
         <AddSomething thing="item" callback={(value) => this.addEstimation(value)}/>
-      </div>
-      <div className="col-xs-12 col-md-3 col-md-offset-1">
-        <h1>
-          <EstimationValue estimation={estimation}/>
-        </h1>
       </div>
     </main>
   }
