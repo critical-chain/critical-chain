@@ -10,18 +10,14 @@ body {
   line-height: 25px;
 }
 
-header>div {
-  display: flex;
-}
-
-.toolbar>a>svg,span {
-  vertical-align: middle;
-}
-
 #applicationRoot>header {
   width: 100%;
   padding-bottom: 24px;
 }
+#applicationRoot>header>div {
+  display: flex;
+}
+
 #applicationRoot>header .toolbar>a {
   text-decoration: none;
 }
@@ -30,6 +26,16 @@ header>div {
   color: black;
   pointer-events: none;
 }
+#applicationRoot>header .toolbar>a>svg,span {
+  vertical-align: middle;
+}
+
+@media (max-width: 600px) {
+  .hide-on-sm {
+    display: none;
+  }
+}
+
 
 .small {
   font-weight: 300;
@@ -52,3 +58,4 @@ header>div {
 .addSomethingTextField {
   width: calc(100% - 54px);
 }
+

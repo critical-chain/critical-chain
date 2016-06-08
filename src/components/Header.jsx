@@ -26,9 +26,9 @@ class Header extends React.Component {
     return <header>
       <Toolbar>
         <ToolbarGroup className="toolbar">
-          <IndexLink to="/" activeClassName="disabled">
+          <IndexLink to="/" className="row middle-xs" activeClassName="disabled">
             <ActionAssignment />
-            <ToolbarTitle text="Critical chain"/>
+            <ToolbarTitle text="Critical chain" className="hide-on-sm" />
           </IndexLink>
 
           { this.getCurrentEstimationId() ?
@@ -44,7 +44,8 @@ class Header extends React.Component {
           }
         </ToolbarGroup>
         <ToolbarGroup lastChild={true}>
-          <FlatButton label="Log in to enable sync" icon={<ActionAccountCircle />}/>
+          <FlatButton disabled={true} label={<span className="hide-on-sm">Log in to enable sync</span>}
+                      icon={<ActionAccountCircle />}/>
         </ToolbarGroup>
       </Toolbar>
     </header>
