@@ -18,9 +18,8 @@ class Header extends React.Component {
     return parseInt(this.props.params.id);
   }
 
-  navigateToEstimation(_event, _index, estimationId) {
-    console.log(this);
-    this.props.router.transitionTo('/estimations/' + estimationId);
+  navigateToEstimation(estimationId) {
+    this.props.router.push('/estimations/' + estimationId);
   }
 
   render() {
@@ -33,7 +32,8 @@ class Header extends React.Component {
           </IndexLink>
 
           { this.getCurrentEstimationId() ?
-            <DropDownMenu value={this.getCurrentEstimationId()} onChange={this.navigateToEstimation}>
+            <DropDownMenu value={this.getCurrentEstimationId()}
+                          onChange={(_a,_b,estimationId) => this.navigateToEstimation(estimationId)}>
             {
               this.getEstimations().map(estimation =>
                 <MenuItem value={estimation.id} key={'header-menu-' + estimation.id}
