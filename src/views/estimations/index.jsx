@@ -1,7 +1,7 @@
 import React from 'react';
 
 import EstimationsList from '../../components/EstimationsList';
-import AddEstimation from '../../components/AddEstimation'
+import AddSomething from '../../components/AddSomething'
 
 
 export default class EstimationsIndex extends React.Component {
@@ -9,7 +9,7 @@ export default class EstimationsIndex extends React.Component {
     return <main className="row center-md">
       <div className="col-md-3 col-xs-12 start-md">
         <EstimationsList estimations={this.props.estimations}/>
-        <AddEstimation />
+        <AddSomething thing="estimation"/>
       </div>
     </main>
   }

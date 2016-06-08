@@ -22,11 +22,11 @@ const styles = {
 };
 
 
-export default class AddEstimation extends React.Component {
+export default class AddSomething extends React.Component {
   render() {
     return <div style={styles.container} >
-      <Subheader style={styles.subheader} >Add estimation</Subheader>
-      <TextField style={styles.textField} hintText="Name your estimation"/>
+      <Subheader style={styles.subheader} >Add {this.props.thing}</Subheader>
+      <TextField style={styles.textField} hintText={"Name your " + this.props.thing}/>
       <FloatingActionButton mini={true} style={styles.actionButton} >
         <ContentAdd />
       </FloatingActionButton>

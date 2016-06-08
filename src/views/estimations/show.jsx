@@ -6,6 +6,7 @@ import List from 'material-ui/List';
 
 import EstimationValue from '../../components/EstimationValue';
 import EstimationStep from '../../components/EstimationStep';
+import AddSomething from '../../components/AddSomething'
 
 
 class EstimationsShow extends React.Component {
@@ -32,6 +33,7 @@ class EstimationsShow extends React.Component {
             }
           </List>
         </Paper>
+        <AddSomething thing="item"/>
       </div>
       <div className="col-xs-12 col-md-3 col-md-offset-1">
         <h1>
