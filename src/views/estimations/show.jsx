@@ -16,7 +16,6 @@ class EstimationsShow extends React.Component {
 
   getEstimation() {
     var currentId = this.props.params.id;
-    console.log(currentId, this.props.estimations);
     return this.props.estimations.find((e) => {
         return e.get('id') == currentId;
       }) || Immutable.Map({});
