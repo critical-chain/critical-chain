@@ -36,8 +36,8 @@ class Header extends React.Component {
                           onChange={(_a,_b,estimationId) => this.navigateToEstimation(estimationId)}>
             {
               this.getEstimations().map(estimation =>
-                <MenuItem value={estimation.id} key={'header-menu-' + estimation.id}
-                          primaryText={estimation.title}/>
+                <MenuItem value={estimation.get('id')} key={'header-menu-' + estimation.get('id')}
+                          primaryText={estimation.get('title')}/>
               )
             }
             </DropDownMenu> : undefined

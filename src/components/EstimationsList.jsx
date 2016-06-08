@@ -10,7 +10,7 @@ import EstimationValue from './EstimationValue';
 
 class EstimationsList extends React.Component {
   goTo(estimation) {
-    this.props.router.push('/estimations/' + estimation.id);
+    this.props.router.push('/estimations/' + estimation.get('id'));
   }
 
   render() {
@@ -19,7 +19,7 @@ class EstimationsList extends React.Component {
         <Subheader>Your estimations</Subheader>
         {
           this.props.estimations.map(estimation =>
-            <ListItem primaryText={estimation.title} key={estimation.id}
+            <ListItem primaryText={estimation.get('title')} key={estimation.get('id')}
                       secondaryText={<div className="end-xs"><EstimationValue estimation={estimation}/></div>}
                       onTouchTap={() => this.goTo(estimation)}/>
           )

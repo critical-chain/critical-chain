@@ -23,11 +23,20 @@ const styles = {
 
 
 export default class AddSomething extends React.Component {
+  onSubmit() {
+    var value = this.refs.thingTitle.getValue();
+    var callback = this.props.callback;
+    if (typeof callback === 'function' && value != '') {
+      callback(value);
+    }
+  }
   render() {
     return <div style={styles.container} >
       <Subheader style={styles.subheader} >Add {this.props.thing}</Subheader>
-      <TextField className="addSomethingTextField" style={styles.textField} hintText={"Name your " + this.props.thing}/>
-      <FloatingActionButton mini={true} style={styles.actionButton} >
+      <TextField className="addSomethingTextField"style={styles.textField}
+                 hintText={"Name your " + this.props.thing} ref="thingTitle"/>
+      <FloatingActionButton mini={true} style={styles.actionButton}
+                            onMouseUp={() => this.onSubmit()} onTouchStart={() => this.onSubmit()} >
         <ContentAdd />
       </FloatingActionButton>
     </div>
