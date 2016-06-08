@@ -10,6 +10,10 @@ body {
   line-height: 25px;
 }
 
+header>div {
+  display: flex;
+}
+
 #applicationRoot>header {
   width: 100%;
   padding-bottom: 24px;
@@ -39,4 +43,8 @@ body {
 }
 .estimationValue .total {
   color: #8a6d3b;
+}
+
+.addSomethingTextField {
+  width: calc(100% - 54px);
 }

@@ -14,7 +14,7 @@ const styles = {
   },
   textField: {
     margin: '0 16px',
-    width: 'calc(100% - 58px)'
+    width: 'calc(100% - 54px)'
   },
   actionButton: {
     marginLeft: '-24px'
@@ -26,7 +26,7 @@ export default class AddSomething extends React.Component {
   render() {
     return <div style={styles.container} >
       <Subheader style={styles.subheader} >Add {this.props.thing}</Subheader>
-      <TextField style={styles.textField} hintText={"Name your " + this.props.thing}/>
+      <TextField className="addSomethingTextField" style={styles.textField} hintText={"Name your " + this.props.thing}/>
       <FloatingActionButton mini={true} style={styles.actionButton} >
         <ContentAdd />
       </FloatingActionButton>
