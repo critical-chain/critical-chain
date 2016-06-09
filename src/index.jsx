@@ -19,7 +19,7 @@ import EstimationsShow from './views/estimations/show';
 import Header from './components/Header';
 require('./main.css');
 
-import reducer from './reducer';
+import reducer from './reducers';
 import actions from './actions';
 
 
@@ -59,7 +59,10 @@ const muiTheme = getMuiTheme({
 const App = React.createClass({
   render() {
     var estimations = this.props.estimations || [];
-    var callbacks = {addEstimationItem: this.props.addEstimationItem};
+    var callbacks = {
+      addEstimation: this.props.addEstimation,
+      addEstimationItem: this.props.addEstimationItem
+    };
     return <MuiThemeProvider muiTheme={muiTheme}>
       <div id="applicationRoot">
         <Header estimations={estimations} params={this.props.params}/>
