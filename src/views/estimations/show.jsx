@@ -10,7 +10,7 @@ import EstimationStep from '../../components/EstimationStep';
 import AddSomething from '../../components/AddSomething';
 
 class EstimationsShow extends React.Component {
-  addEstimation(value) {
+  addEstimationItem(value) {
     this.props.callbacks.addEstimationItem(this.props.params.id, value);
   }
 
@@ -21,15 +21,16 @@ class EstimationsShow extends React.Component {
       }) || Immutable.Map({});
   }
 
-
-  componentWillMount() {
-    if (this.getEstimation() === undefined) {
+  redirectIfNoEstimationFound() {
+    if (this.getEstimation() === Immutable.Map({})) {
       this.props.router.replace('/');
       return <div/>;
     }
   }
 
   render() {
+    this.redirectIfNoEstimationFound();
+
     var estimation = this.getEstimation();
     return <main className="row">
       <div className="col-xs-12 col-md-3 col-md-offset-1 last-md">
@@ -48,7 +49,7 @@ class EstimationsShow extends React.Component {
             }
           </List>
         </Paper>
-        <AddSomething thing="item" callback={(value) => this.addEstimation(value)}/>
+        <AddSomething thing="item" callback={(value) => this.addEstimationItem(value)}/>
       </div>
     </main>
   }
