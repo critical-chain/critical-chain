@@ -1,12 +1,17 @@
 import React from 'react';
+import {connect} from 'react-redux';
+
+import Immutable from 'immutable';
 
 import EstimationsList from '../../components/EstimationsList';
 import AddSomething from '../../components/AddSomething'
 
+import {addEstimation} from '../../actions';
 
-export default class EstimationsIndex extends React.Component {
+
+class EstimationsIndex extends React.Component {
   addEstimation(value) {
-    this.props.callbacks.addEstimation(value);
+    this.props.dispatch(addEstimation(value));
   }
 
   render() {
@@ -17,4 +22,9 @@ export default class EstimationsIndex extends React.Component {
       </div>
     </main>
   }
-};
+}
+
+function _mapStateToProps(state) {
+  return {estimations: state.reducer.get('estimations', Immutable.List([]))};
+}
+export default connect(_mapStateToProps)(EstimationsIndex);

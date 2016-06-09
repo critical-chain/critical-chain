@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import Immutable from 'immutable';
 
@@ -9,9 +10,12 @@ import EstimationValue from '../../components/EstimationValue';
 import EstimationStep from '../../components/EstimationStep';
 import AddSomething from '../../components/AddSomething';
 
+import {addEstimationItem} from '../../actions';
+
+
 class EstimationsShow extends React.Component {
   addEstimationItem(value) {
-    this.props.callbacks.addEstimationItem(this.props.params.id, value);
+    this.props.dispatch(addEstimationItem(this.props.params.id, value));
   }
 
   getEstimation() {
@@ -55,4 +59,7 @@ class EstimationsShow extends React.Component {
   }
 }
 
-export default withRouter(EstimationsShow);
+function _mapStateToProps(state) {
+  return {estimations: state.reducer.get('estimations', Immutable.List([]))};
+}
+export default connect(_mapStateToProps)(withRouter(EstimationsShow));

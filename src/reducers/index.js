@@ -11,7 +11,7 @@ function addEstimation(state, estimationTitle) {
 function addEstimationItem(state, estimationId, title) {
   var estimationId = parseInt(estimationId);
   return state.update('estimations', (estimations) => estimations.map((estimation) => {
-    if(estimation.get('id')===estimationId) {
+    if (estimation.get('id') === estimationId) {
       var id = estimation.get('steps', Immutable.List([])).last().get('id', 0) + 1;
       return estimation.update('steps', list => list.push(Immutable.Map({
         id, title, value: 0

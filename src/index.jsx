@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, IndexRoute, hashHistory} from 'react-router'
+import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 
 import {compose, createStore, combineReducers} from 'redux';
 import {Provider, connect} from 'react-redux';
 import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
+
 import Immutable from 'immutable';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -20,7 +21,6 @@ import Header from './components/Header';
 require('./main.css');
 
 import reducer from './reducers';
-import actions from './actions';
 
 
 const DEFAULT_STATE = Immutable.fromJS({
@@ -58,26 +58,16 @@ const muiTheme = getMuiTheme({
 
 const App = React.createClass({
   render() {
-    var estimations = this.props.estimations || [];
-    var callbacks = {
-      addEstimation: this.props.addEstimation,
-      addEstimationItem: this.props.addEstimationItem
-    };
     return <MuiThemeProvider muiTheme={muiTheme}>
       <div id="applicationRoot">
-        <Header estimations={estimations} params={this.props.params}/>
-           {this.props.children && React.cloneElement(this.props.children, {
-             estimations, callbacks
-           })}
+        <Header params={this.props.params}/>
+         { this.props.children && React.cloneElement(this.props.children, {params: this.props.params}) }
       </div>
     </MuiThemeProvider>
   }
 });
 
-function _mapStateToProps(state) {
-  return {estimations: state.reducer.get('estimations')};
-}
-export const AppContainer = connect(_mapStateToProps, actions)(App);
+const AppContainer = connect()(App);
 
 ReactDOM.render(
   <Provider store={store}>

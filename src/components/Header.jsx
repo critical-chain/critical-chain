@@ -1,5 +1,6 @@
 import React from 'react';
-import {IndexLink, withRouter} from 'react-router'
+import {connect} from 'react-redux';
+import {IndexLink, withRouter} from 'react-router';
 
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import DropDownMenu from 'material-ui/DropDownMenu';
@@ -28,20 +29,21 @@ class Header extends React.Component {
         <ToolbarGroup className="toolbar">
           <IndexLink to="/" className="row middle-xs" activeClassName="disabled">
             <ActionAssignment />
-            <ToolbarTitle text="Critical chain" className="hide-on-sm" />
+            <ToolbarTitle text="Critical chain" className="hide-on-sm"/>
           </IndexLink>
 
-          { this.getCurrentEstimationId() ?
-            <DropDownMenu value={this.getCurrentEstimationId()}
-                          onChange={(_a,_b,estimationId) => this.navigateToEstimation(estimationId)}>
-            {
-              this.getEstimations().map(estimation =>
-                <MenuItem value={estimation.get('id')} key={'header-menu-' + estimation.get('id')}
-                          primaryText={estimation.get('title')}/>
-              )
-            }
-            </DropDownMenu> : undefined
-          }
+                      { this.getCurrentEstimationId() ?
+                        <DropDownMenu value={this.getCurrentEstimationId()}
+                                      onChange={(_a, _b, estimationId) => this.navigateToEstimation(estimationId)}>
+                                      {
+                                        this.getEstimations().map(estimation =>
+                                          <MenuItem value={estimation.get('id')}
+                                                    key={'header-menu-' + estimation.get('id')}
+                                                    primaryText={estimation.get('title')}/>
+                                        )
+                                      }
+                        </DropDownMenu> : undefined
+                      }
         </ToolbarGroup>
         <ToolbarGroup lastChild={true}>
           <FlatButton disabled={true} label={<span className="hide-on-sm">Log in to enable sync</span>}
@@ -52,4 +54,7 @@ class Header extends React.Component {
   }
 }
 
-export default withRouter(Header);
+function _mapStateToProps(state) {
+  return {estimations: state.reducer.get('estimations')};
+}
+export default connect(_mapStateToProps)(withRouter(Header));
