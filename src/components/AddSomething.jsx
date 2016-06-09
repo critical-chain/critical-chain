@@ -36,12 +36,17 @@ export default class AddSomething extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.refs.thingTitle.input.focus();
+  }
+
   render() {
     return <div style={styles.container} >
       <Subheader style={styles.subheader} >Add {this.props.thing}</Subheader>
       <TextField className="addSomethingTextField" style={styles.textField}
                  hintText={"Name your " + this.props.thing} ref="thingTitle"
                  onKeyDown={(event) => this.onKeyDown(event)}
+
       />
       <FloatingActionButton mini={true} style={styles.actionButton}
                             onMouseUp={() => this.onSubmit()} onTouchStart={() => this.onSubmit()} >
