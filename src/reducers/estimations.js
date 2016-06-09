@@ -12,7 +12,7 @@ function addEstimationItem(estimations, estimationId, title) {
   var estimationId = parseInt(estimationId);
   return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
-      var id = estimation.get('steps', Immutable.List([])).last().get('id', 0) + 1;
+      var id = (estimation.get('steps', Immutable.List([])).last()||Immutable.Map({})).get('id', 0) + 1;
       return estimation.update('steps', list => list.push(Immutable.Map({
         id, title, value: 0
       })));
