@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 
-import {compose, createStore, combineReducers} from 'redux';
+import {compose, createStore, combineReducers, applyMiddleware} from 'redux';
 import {Provider, connect} from 'react-redux';
+import thunk from 'redux-thunk';
 import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
 
 import Immutable from 'immutable';
@@ -15,36 +16,37 @@ import deepOrange500 from 'material-ui/styles/colors'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-import EstimationsIndex from './views/estimations/index';
-import EstimationsShow from './views/estimations/show';
+import EstimationsIndex from './views/estimations/EstimationsIndex';
+import EstimationsShow from './views/estimations/EstimationsShow';
 import Header from './components/Header';
 require('./main.css');
 
-import reducer from './reducers';
+import estimationReducers from './reducers/estimations';
 
 
-const DEFAULT_STATE = Immutable.fromJS({
-  estimations: [{
+const DEFAULT_STATE = Immutable.fromJS([
+  {
     id: 1, title: 'React', steps: [
       {id: 1, title: 'Раскочегарить', value: 3},
       {id: 2, title: 'Накодить', value: 8},
       {id: 3, title: 'Закомитить', value: 4}
     ]
   },
-    {
-      id: 2, title: 'Redux', steps: [
+  {
+    id: 2, title: 'Redux', steps: [
       {id: 1, title: 'Подключить', value: 3},
       {id: 2, title: 'Использовать', value: 4}
     ]
-    }]
-});
+  }
+]);
 
-const createStoreDevTools = compose(
-  window.devToolsExtension ? window.devToolsExtension() : f => f
-)(createStore);
-const store = createStoreDevTools(
-  combineReducers({routing: routerReducer, reducer}),
-  {routing: {}, reducer: DEFAULT_STATE}
+const store = createStore(
+  combineReducers({routing: routerReducer, estimations: estimationReducers}),
+  {routing: {}, estimations: DEFAULT_STATE},
+  compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
 );
 const history = syncHistoryWithStore(hashHistory, store);
 
@@ -61,9 +63,9 @@ const App = React.createClass({
     return <MuiThemeProvider muiTheme={muiTheme}>
       <div id="applicationRoot">
         <Header params={this.props.params}/>
-         { this.props.children && React.cloneElement(this.props.children, {params: this.props.params}) }
+           { this.props.children && React.cloneElement(this.props.children, {params: this.props.params}) }
       </div>
-    </MuiThemeProvider>
+    </MuiThemeProvider>;
   }
 });
 

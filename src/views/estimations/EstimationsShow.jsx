@@ -60,6 +60,6 @@ class EstimationsShow extends React.Component {
 }
 
 function _mapStateToProps(state) {
-  return {estimations: state.reducer.get('estimations', Immutable.List([]))};
+  return {estimations: state.estimations || Immutable.List([])};
 }
 export default connect(_mapStateToProps)(withRouter(EstimationsShow));

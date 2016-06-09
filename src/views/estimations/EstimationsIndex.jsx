@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
 
 import Immutable from 'immutable';
 
@@ -11,7 +12,8 @@ import {addEstimation} from '../../actions';
 
 class EstimationsIndex extends React.Component {
   addEstimation(value) {
-    this.props.dispatch(addEstimation(value));
+    var newId = this.props.dispatch(addEstimation(value));
+    this.props.router.push('/estimations/' + newId);
   }
 
   render() {
@@ -25,6 +27,6 @@ class EstimationsIndex extends React.Component {
 }
 
 function _mapStateToProps(state) {
-  return {estimations: state.reducer.get('estimations', Immutable.List([]))};
+  return {estimations: state.estimations || Immutable.List([])};
 }
-export default connect(_mapStateToProps)(EstimationsIndex);
+export default connect(_mapStateToProps)(withRouter(EstimationsIndex));

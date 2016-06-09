@@ -55,6 +55,6 @@ class Header extends React.Component {
 }
 
 function _mapStateToProps(state) {
-  return {estimations: state.reducer.get('estimations')};
+  return {estimations: state.estimations};
 }
 export default connect(_mapStateToProps)(withRouter(Header));

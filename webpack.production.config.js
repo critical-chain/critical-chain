@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    './src/index.jsx'
+    './src/EstimationsIndex.jsx'
   ],
   module: {
     loaders: [{

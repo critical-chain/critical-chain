@@ -1,16 +1,16 @@
 import Immutable from 'immutable';
 
 
-function addEstimation(state, estimationTitle) {
-  var estimationId = state.get('estimations').last().get('id', 0) + 1;
-  return state.update('estimations', (estimations) => estimations.push(
+function addEstimation(estimations, estimationTitle) {
+  var estimationId = estimations.last().get('id', 0) + 1;
+  return estimations.push(
     Immutable.Map({id: estimationId, title: estimationTitle, steps: Immutable.List([])})
-  ));
+  );
 }
 
-function addEstimationItem(state, estimationId, title) {
+function addEstimationItem(estimations, estimationId, title) {
   var estimationId = parseInt(estimationId);
-  return state.update('estimations', (estimations) => estimations.map((estimation) => {
+  return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
       var id = estimation.get('steps', Immutable.List([])).last().get('id', 0) + 1;
       return estimation.update('steps', list => list.push(Immutable.Map({
@@ -19,7 +19,7 @@ function addEstimationItem(state, estimationId, title) {
     } else {
       return estimation;
     }
-  }));
+  });
 }
 
 

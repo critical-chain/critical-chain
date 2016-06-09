@@ -33,7 +33,7 @@ export default class AddSomething extends React.Component {
   render() {
     return <div style={styles.container} >
       <Subheader style={styles.subheader} >Add {this.props.thing}</Subheader>
-      <TextField className="addSomethingTextField"style={styles.textField}
+      <TextField className="addSomethingTextField" style={styles.textField}
                  hintText={"Name your " + this.props.thing} ref="thingTitle"/>
       <FloatingActionButton mini={true} style={styles.actionButton}
                             onMouseUp={() => this.onSubmit()} onTouchStart={() => this.onSubmit()} >
