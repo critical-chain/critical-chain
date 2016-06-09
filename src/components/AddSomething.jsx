@@ -30,12 +30,18 @@ export default class AddSomething extends React.Component {
       callback(value);
     }
   }
+  onKeyDown(event) {
+    if(event.key==='Enter'){
+      this.onSubmit();
+    }
+  }
+
   render() {
     return <div style={styles.container} >
       <Subheader style={styles.subheader} >Add {this.props.thing}</Subheader>
       <TextField className="addSomethingTextField" style={styles.textField}
                  hintText={"Name your " + this.props.thing} ref="thingTitle"
-                 onEnterKeyDown={() => this.onSubmit()}
+                 onKeyDown={(event) => this.onKeyDown(event)}
       />
       <FloatingActionButton mini={true} style={styles.actionButton}
                             onMouseUp={() => this.onSubmit()} onTouchStart={() => this.onSubmit()} >
