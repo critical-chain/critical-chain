@@ -28,6 +28,7 @@ export default class AddSomething extends React.Component {
     var callback = this.props.callback;
     if (typeof callback === 'function' && value != '') {
       callback(value);
+      this.refs.thingTitle.input.value='';
     }
   }
   onKeyDown(event) {
