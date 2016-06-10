@@ -16,3 +16,8 @@ export function startEstimationItemEditing(estimationId, estimationItemId) {
     return dispatch({type: 'START_ESTIMATION_ITEM_EDITING', estimationId, estimationItemId});
   }
 }
+export function stopEstimationItemEditing(estimationId, estimationItemId) {
+  return (dispatch) => {
+    return dispatch({type: 'STOP_ESTIMATION_ITEM_EDITING', estimationId, estimationItemId});
+  }
+}

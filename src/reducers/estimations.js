@@ -33,6 +33,17 @@ function startEstimationItemEditing(estimations, estimationId, estimationItemId)
   });
 }
 
+function stopEstimationItemEditing(estimations, estimationId, estimationItemId) {
+  return estimations.map(estimation => {
+    if (estimation.get('id') === estimationId) {
+      return estimation.update('steps', steps => steps.map(step =>
+        step.update('isEdited', () => false)
+      ));
+    } else {
+      return estimation;
+    }
+  });
+}
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -44,6 +55,8 @@ export default function (state = {}, action) {
       return addEstimationItem(state, action.estimationId, action.itemTitle);
     case 'START_ESTIMATION_ITEM_EDITING':
       return startEstimationItemEditing(state, action.estimationId, action.estimationItemId);
+    case 'STOP_ESTIMATION_ITEM_EDITING':
+      return stopEstimationItemEditing(state, action.estimationId, action.estimationItemId);
     default:
       return state;
   }
