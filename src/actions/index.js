@@ -10,3 +10,9 @@ export function addEstimationItem(estimationId, itemTitle) {
     return dispatch({type: 'ADD_ESTIMATION_ITEM', estimationId, itemTitle})
   }
 }
+
+export function startEstimationItemEditing(estimationId, estimationItemId) {
+  return (dispatch) => {
+    return dispatch({type: 'START_ESTIMATION_ITEM_EDITING', estimationId, estimationItemId});
+  }
+}

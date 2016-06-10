@@ -60,3 +60,9 @@ body {
   width: calc(100% - 54px);
 }
 
+.titleEditor {
+  width: calc(100% - 5em);
+}
+.valueEditor>input[type='number'] {
+  text-align: right;
+}

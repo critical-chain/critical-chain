@@ -9,13 +9,24 @@ function addEstimation(estimations, estimationTitle) {
 }
 
 function addEstimationItem(estimations, estimationId, title) {
-  var estimationId = parseInt(estimationId);
   return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
       var id = (estimation.get('steps', Immutable.List([])).last()||Immutable.Map({})).get('id', 0) + 1;
       return estimation.update('steps', list => list.push(Immutable.Map({
         id, title, value: 0
       })));
+    } else {
+      return estimation;
+    }
+  });
+}
+
+function startEstimationItemEditing(estimations, estimationId, estimationItemId) {
+  return estimations.map(estimation => {
+    if (estimation.get('id') === estimationId) {
+      return estimation.update('steps', steps => steps.map(step =>
+        step.update('isEdited', () => step.get('id') === estimationItemId)
+      ));
     } else {
       return estimation;
     }
@@ -31,6 +42,8 @@ export default function (state = {}, action) {
       return addEstimation(state, action.estimationTitle);
     case 'ADD_ESTIMATION_ITEM':
       return addEstimationItem(state, action.estimationId, action.itemTitle);
+    case 'START_ESTIMATION_ITEM_EDITING':
+      return startEstimationItemEditing(state, action.estimationId, action.estimationItemId);
     default:
       return state;
   }

@@ -15,7 +15,7 @@ import {addEstimationItem} from '../../actions';
 
 class EstimationsShow extends React.Component {
   addEstimationItem(value) {
-    this.props.dispatch(addEstimationItem(this.props.params.id, value));
+    this.props.dispatch(addEstimationItem(parseInt(this.props.params.id), value));
   }
 
   getEstimation() {
@@ -23,6 +23,10 @@ class EstimationsShow extends React.Component {
     return this.props.estimations.find((e) => {
         return e.get('id') == currentId;
       }) || Immutable.Map({});
+  }
+
+  hasSteps() {
+    return this.getEstimation().get('steps').size > 0;
   }
 
   redirectIfNoEstimationFound() {
@@ -49,7 +53,7 @@ class EstimationsShow extends React.Component {
           <List>
             {
               estimation.get('steps', Immutable.List([]))
-                .map(step => <EstimationStep step={step} key={"step-" + step.get('id')}/>)
+                .map(step => <EstimationStep step={step} estimationId={estimation.get('id')} key={"step-" + step.get('id')}/>)
             }
           </List>
         </Paper>
