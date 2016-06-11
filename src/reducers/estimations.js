@@ -11,10 +11,26 @@ function addEstimation(estimations, estimationTitle) {
 function addEstimationItem(estimations, estimationId, title) {
   return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
-      var id = (estimation.get('steps', Immutable.List([])).last()||Immutable.Map({})).get('id', 0) + 1;
+      var id = (estimation.get('steps', Immutable.List([])).last() || Immutable.Map({})).get('id', 0) + 1;
       return estimation.update('steps', list => list.push(Immutable.Map({
         id, title, value: 0
       })));
+    } else {
+      return estimation;
+    }
+  });
+}
+
+function updateEstimationItem(estimations, estimationId, estimationItemId, newValues) {
+  return estimations.map((estimation) => {
+    if (estimation.get('id') === estimationId) {
+      return estimation.update('steps', steps => steps.map(step => {
+        if (step.get('id') === estimationItemId) {
+          return step.update('title', () => newValues.title).update('value', () => newValues.value);
+        } else {
+          return step;
+        }
+      }));
     } else {
       return estimation;
     }
@@ -33,7 +49,7 @@ function startEstimationItemEditing(estimations, estimationId, estimationItemId)
   });
 }
 
-function stopEstimationItemEditing(estimations, estimationId, estimationItemId) {
+function stopEstimationItemsEditing(estimations, estimationId) {
   return estimations.map(estimation => {
     if (estimation.get('id') === estimationId) {
       return estimation.update('steps', steps => steps.map(step =>
@@ -45,6 +61,7 @@ function stopEstimationItemEditing(estimations, estimationId, estimationItemId) 
   });
 }
 
+
 export default function (state = {}, action) {
   switch (action.type) {
     case 'SET_STATE':
@@ -53,10 +70,12 @@ export default function (state = {}, action) {
       return addEstimation(state, action.estimationTitle);
     case 'ADD_ESTIMATION_ITEM':
       return addEstimationItem(state, action.estimationId, action.itemTitle);
+    case 'UPDATE_ESTIMATION_ITEM':
+      return updateEstimationItem(state, action.estimationId, action.estimationItemId, action.newValues);
     case 'START_ESTIMATION_ITEM_EDITING':
       return startEstimationItemEditing(state, action.estimationId, action.estimationItemId);
-    case 'STOP_ESTIMATION_ITEM_EDITING':
-      return stopEstimationItemEditing(state, action.estimationId, action.estimationItemId);
+    case 'STOP_ESTIMATION_ITEMS_EDITING':
+      return stopEstimationItemsEditing(state, action.estimationId);
     default:
       return state;
   }

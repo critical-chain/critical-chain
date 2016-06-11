@@ -6,8 +6,14 @@ export function addEstimation(estimationTitle) {
 }
 
 export function addEstimationItem(estimationId, itemTitle) {
+  return (dispatch, getState) => {
+    dispatch({type: 'ADD_ESTIMATION_ITEM', estimationId, itemTitle});
+    return getState().estimations.find()
+  }
+}
+export function updateEstimationItem(estimationId, estimationItemId, newValues) {
   return (dispatch) => {
-    return dispatch({type: 'ADD_ESTIMATION_ITEM', estimationId, itemTitle})
+    return dispatch({type: 'UPDATE_ESTIMATION_ITEM', estimationId, estimationItemId, newValues})
   }
 }
 
@@ -16,8 +22,8 @@ export function startEstimationItemEditing(estimationId, estimationItemId) {
     return dispatch({type: 'START_ESTIMATION_ITEM_EDITING', estimationId, estimationItemId});
   }
 }
-export function stopEstimationItemEditing(estimationId, estimationItemId) {
+export function stopEstimationItemsEditing(estimationId) {
   return (dispatch) => {
-    return dispatch({type: 'STOP_ESTIMATION_ITEM_EDITING', estimationId, estimationItemId});
+    return dispatch({type: 'STOP_ESTIMATION_ITEMS_EDITING', estimationId});
   }
 }
