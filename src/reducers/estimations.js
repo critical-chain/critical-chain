@@ -39,6 +39,16 @@ function updateEstimationItem(estimations, estimationId, estimationItemId, newVa
   });
 }
 
+function deleteEstimationItem(estimations, estimationId, estimationItemId) {
+  return estimations.map((estimation) => {
+    if (estimation.get('id') === estimationId) {
+      return estimation.update('steps', steps => steps.filterNot(step => step.get('id')===estimationItemId));
+    } else {
+      return estimation;
+    }
+  });
+}
+
 function startEstimationItemEditing(estimations, estimationId, estimationItemId) {
   return estimations.map(estimation => {
     if (estimation.get('id') === estimationId) {
@@ -74,6 +84,8 @@ export default function (state = {}, action) {
       return addEstimationItem(state, action.estimationId, action.itemTitle);
     case 'UPDATE_ESTIMATION_ITEM':
       return updateEstimationItem(state, action.estimationId, action.estimationItemId, action.newValues);
+    case 'DELETE_ESTIMATION_ITEM':
+      return deleteEstimationItem(state, action.estimationId, action.estimationItemId);
     case 'START_ESTIMATION_ITEM_EDITING':
       return startEstimationItemEditing(state, action.estimationId, action.estimationItemId);
     case 'STOP_ESTIMATION_ITEMS_EDITING':

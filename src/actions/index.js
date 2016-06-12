@@ -15,7 +15,12 @@ export function addEstimationItem(estimationId, itemTitle) {
 }
 export function updateEstimationItem(estimationId, estimationItemId, newValues) {
   return (dispatch) => {
-    return dispatch({type: 'UPDATE_ESTIMATION_ITEM', estimationId, estimationItemId, newValues})
+    return dispatch({type: 'UPDATE_ESTIMATION_ITEM', estimationId, estimationItemId, newValues});
+  }
+}
+export function deleteEstimationItem(estimationId, estimationItemId) {
+  return (dispatch) => {
+    return dispatch({type: 'DELETE_ESTIMATION_ITEM', estimationId, estimationItemId});
   }
 }
 

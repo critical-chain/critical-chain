@@ -3,16 +3,18 @@ import {connect} from 'react-redux';
 
 import {ListItem} from 'material-ui/List';
 import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
 
-import {startEstimationItemEditing, stopEstimationItemsEditing, updateEstimationItem} from '../actions';
+import {startEstimationItemEditing, stopEstimationItemsEditing,
+  updateEstimationItem, deleteEstimationItem} from '../actions';
 
 
 const styles = {
   titleEditor: {
-    width: 'calc(100% - 5em)'
+    width: 'calc(100% - 5em - 54px)'
   },
   valueEditor: {
-    float: 'right',
     maxWidth: '4em',
   }
 };
@@ -42,6 +44,12 @@ class EstimationStep extends React.Component {
           value: parseFloat(this.refs.valueEditor.getValue())
         })
     )
+  }
+
+  deleteItem() {
+    this.props.dispatch(
+      deleteEstimationItem(this.props.estimationId, this.props.step.get('id'))
+    );
   }
 
   keyDownHandler(event) {
@@ -85,12 +93,15 @@ class EstimationStep extends React.Component {
                    ref="titleEditor" id={"titleEditor" + id}
                    onKeyDown={(event) => this.keyDownHandler(event)}
                    onBlur={() => this.blurHandler()}/>
-        <TextField defaultValue={value} style={styles.valueEditor} className="valueEditor"
-                   ref="valueEditor" type="number" id={"valueEditor" + id}
-                   onKeyDown={(event) => this.keyDownHandler(event)}
-                   onFocus={() => this.autoselect()}
-                   onBlur={() => this.blurHandler()}/>
-
+        <div style={{float: 'right'}}>
+          <TextField defaultValue={value} style={styles.valueEditor} className="valueEditor"
+                     ref="valueEditor" type="number" id={"valueEditor" + id}
+                     onKeyDown={(event) => this.keyDownHandler(event)}
+                     onFocus={() => this.autoselect()}
+                     onBlur={() => this.blurHandler()}/>
+          <IconButton children={<ActionDelete />} tooltip={<span>Delete</span>}
+                      onTouchTap={() => this.deleteItem()} />
+        </div>
       </ListItem>
     } else {
       return <ListItem onTouchTap={() => this.startEditing()} rightIcon={<span>{value}</span>}>{title}</ListItem>
