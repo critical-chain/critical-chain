@@ -16,7 +16,7 @@ class Header extends React.Component {
   }
 
   getCurrentEstimationId() {
-    return parseInt(this.props.params.id);
+    return this.props.params.id;
   }
 
   navigateToEstimation(estimationId) {

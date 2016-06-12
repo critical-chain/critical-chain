@@ -1,8 +1,10 @@
 import Immutable from 'immutable';
 
+import uuid from 'uuid';
+
 
 function addEstimation(estimations, estimationTitle) {
-  var estimationId = estimations.last().get('id', 0) + 1;
+  var id = uuid.v4();
   return estimations.push(
     Immutable.Map({id: estimationId, title: estimationTitle, steps: Immutable.List([])})
   );
@@ -11,9 +13,9 @@ function addEstimation(estimations, estimationTitle) {
 function addEstimationItem(estimations, estimationId, title) {
   return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
-      var id = (estimation.get('steps', Immutable.List([])).last() || Immutable.Map({})).get('id', 0) + 1;
+      var estimationItemId = uuid.v4();
       return estimation.update('steps', list => list.push(Immutable.Map({
-        id, title, value: 0
+        estimationItemId, title, value: 0
       })));
     } else {
       return estimation;

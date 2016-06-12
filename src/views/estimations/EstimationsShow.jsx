@@ -15,7 +15,7 @@ import {addEstimationItem} from '../../actions';
 
 class EstimationsShow extends React.Component {
   addEstimationItem(value) {
-    this.props.dispatch(addEstimationItem(parseInt(this.props.params.id), value));
+    var itemId = this.props.dispatch(addEstimationItem(this.props.params.id, value));
   }
 
   getEstimation() {

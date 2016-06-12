@@ -26,16 +26,16 @@ import estimationReducers from './reducers/estimations';
 
 const DEFAULT_STATE = Immutable.fromJS([
   {
-    id: 1, title: 'React', steps: [
-      {id: 1, title: 'Раскочегарить', value: 3},
-      {id: 2, title: 'Накодить', value: 8},
-      {id: 3, title: 'Закомитить', value: 4}
+    id: '2360a60e-c0ea-4703-b74e-8410f9489210', title: 'React', steps: [
+      {id: '1c4a6330-5235-487d-8878-754ec49841f6', title: 'Раскочегарить', value: 3},
+      {id: 'da8973a4-a0cd-4d44-bac5-a321ecd43ff2', title: 'Накодить', value: 8},
+      {id: 'd6c14112-24bd-4ac7-9fd1-51c974b37fec', title: 'Закомитить', value: 4}
     ]
   },
   {
-    id: 2, title: 'Redux', steps: [
-      {id: 1, title: 'Подключить', value: 3},
-      {id: 2, title: 'Использовать', value: 4}
+    id: '5631a649-4d41-4fce-b416-53e66942b0f9', title: 'Redux', steps: [
+      {id: 'd0dfae80-4b24-49fc-a56e-a9de3cbda1e9', title: 'Подключить', value: 3},
+      {id: 'd495a327-364a-4cd1-9729-3e1fd14c81bc', title: 'Использовать', value: 4}
     ]
   }
 ]);

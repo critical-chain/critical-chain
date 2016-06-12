@@ -8,7 +8,9 @@ export function addEstimation(estimationTitle) {
 export function addEstimationItem(estimationId, itemTitle) {
   return (dispatch, getState) => {
     dispatch({type: 'ADD_ESTIMATION_ITEM', estimationId, itemTitle});
-    return getState().estimations.find()
+    return getState().estimations
+      .find(estimation => estimation.get('id')===estimationId)
+      .get('steps').last().get('id')
   }
 }
 export function updateEstimationItem(estimationId, estimationItemId, newValues) {
