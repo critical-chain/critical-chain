@@ -27,6 +27,10 @@ class EstimationStep extends React.Component {
     this.props.dispatch(
       stopEstimationItemsEditing(this.props.estimationId)
     );
+    var autoInput = document.querySelector('input[autofocus]');
+    if(autoInput) {
+      autoInput.focus();
+    }
   }
   submitChanges() {
     this.props.dispatch(

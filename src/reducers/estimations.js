@@ -4,7 +4,7 @@ import uuid from 'uuid';
 
 
 function addEstimation(estimations, estimationTitle) {
-  var id = uuid.v4();
+  var estimationId = uuid.v4();
   return estimations.push(
     Immutable.Map({id: estimationId, title: estimationTitle, steps: Immutable.List([])})
   );

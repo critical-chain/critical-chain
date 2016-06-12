@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import TextField from 'material-ui/TextField';
 import Subheader from 'material-ui/Subheader';
@@ -28,29 +29,32 @@ export default class AddSomething extends React.Component {
     var callback = this.props.callback;
     if (typeof callback === 'function' && value != '') {
       callback(value);
-      this.refs.thingTitle.input.value='';
+      this.refs.thingTitle.input.value = '';
     }
   }
+
   keyDownHandler(event) {
-    if(event.key==='Enter'){
+    if (event.key === 'Enter') {
       this.onSubmit();
     }
   }
 
   componentDidMount() {
-    this.refs.thingTitle.input.focus();
+    var textInput = ReactDOM.findDOMNode(this.refs.thingTitle.input);
+    textInput.setAttribute('autofocus', true);
+    textInput.focus();
   }
 
   render() {
-    return <div style={styles.container} >
-      <Subheader style={styles.subheader} >Add {this.props.thing}</Subheader>
+    return <div style={styles.container}>
+      <Subheader style={styles.subheader}>Add {this.props.thing}</Subheader>
       <TextField className="addSomethingTextField" style={styles.textField}
                  hintText={"Name your " + this.props.thing} ref="thingTitle"
                  onKeyDown={(event) => this.keyDownHandler(event)}
 
       />
       <FloatingActionButton mini={true} style={styles.actionButton}
-                            onMouseUp={() => this.onSubmit()} onTouchStart={() => this.onSubmit()} >
+                            onMouseUp={() => this.onSubmit()} onTouchStart={() => this.onSubmit()}>
         <ContentAdd />
       </FloatingActionButton>
     </div>
