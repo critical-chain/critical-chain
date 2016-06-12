@@ -15,7 +15,7 @@ function addEstimationItem(estimations, estimationId, title) {
     if (estimation.get('id') === estimationId) {
       var estimationItemId = uuid.v4();
       return estimation.update('steps', list => list.push(Immutable.Map({
-        estimationItemId, title, value: 0
+        id: estimationItemId, title, value: 0
       })));
     } else {
       return estimation;

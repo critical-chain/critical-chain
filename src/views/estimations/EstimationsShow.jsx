@@ -10,12 +10,13 @@ import EstimationValue from '../../components/EstimationValue';
 import EstimationStep from '../../components/EstimationStep';
 import AddSomething from '../../components/AddSomething';
 
-import {addEstimationItem} from '../../actions';
+import {addEstimationItem, startEstimationItemEditing} from '../../actions';
 
 
 class EstimationsShow extends React.Component {
   addEstimationItem(value) {
     var itemId = this.props.dispatch(addEstimationItem(this.props.params.id, value));
+    this.props.dispatch(startEstimationItemEditing(this.props.params.id, itemId));
   }
 
   getEstimation() {
