@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 
 import {startEstimationItemEditing, stopEstimationItemsEditing,
-  updateEstimationItem, deleteEstimationItem} from '../actions';
+  updateEstimationItem, deleteEstimationItem, notifyAboutEstimationItemDeletion} from '../actions';
 
 
 const styles = {
@@ -47,9 +47,10 @@ class EstimationStep extends React.Component {
   }
 
   deleteItem() {
-    this.props.dispatch(
+    var {position, estimationItem} = this.props.dispatch(
       deleteEstimationItem(this.props.estimationId, this.props.step.get('id'))
     );
+    this.props.dispatch(notifyAboutEstimationItemDeletion(this.props.estimationId, position, estimationItem));
   }
 
   keyDownHandler(event) {
@@ -100,9 +101,12 @@ class EstimationStep extends React.Component {
                      onFocus={() => this.autoselect()}
                      onBlur={() => this.blurHandler()}/>
           <IconButton children={<ActionDelete />} tooltip={<span>Delete</span>}
-                      onTouchTap={() => this.deleteItem()} />
+                      onTouchTap={(event) => {
+                        this.deleteItem();
+                        event.stopPropagation();
+                      }}/>
         </div>
-      </ListItem>
+      </ListItem>;
     } else {
       return <ListItem onTouchTap={() => this.startEditing()} rightIcon={<span>{value}</span>}>{title}</ListItem>
     }

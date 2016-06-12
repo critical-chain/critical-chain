@@ -49,6 +49,16 @@ function deleteEstimationItem(estimations, estimationId, estimationItemId) {
   });
 }
 
+function restoreEstimationItem(estimations, estimationId, position, estimationItem) {
+  return estimations.map((estimation) => {
+    if (estimation.get('id') === estimationId) {
+      return estimation.update('steps', steps => steps.insert(position, estimationItem));
+    } else {
+      return estimation;
+    }
+  });
+}
+
 function startEstimationItemEditing(estimations, estimationId, estimationItemId) {
   return estimations.map(estimation => {
     if (estimation.get('id') === estimationId) {
@@ -86,6 +96,8 @@ export default function (state = {}, action) {
       return updateEstimationItem(state, action.estimationId, action.estimationItemId, action.newValues);
     case 'DELETE_ESTIMATION_ITEM':
       return deleteEstimationItem(state, action.estimationId, action.estimationItemId);
+    case 'RESTORE_ESTIMATION_ITEM':
+      return restoreEstimationItem(state, action.estimationId, action.position, action.estimationItem);
     case 'START_ESTIMATION_ITEM_EDITING':
       return startEstimationItemEditing(state, action.estimationId, action.estimationItemId);
     case 'STOP_ESTIMATION_ITEMS_EDITING':
