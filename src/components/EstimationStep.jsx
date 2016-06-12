@@ -23,45 +23,50 @@ class EstimationStep extends React.Component {
       startEstimationItemEditing(this.props.estimationId, this.props.step.get('id'))
     );
   }
-  stopEditing(){
+
+  stopEditing() {
     this.props.dispatch(
       stopEstimationItemsEditing(this.props.estimationId)
     );
     var autoInput = document.querySelector('input[autofocus]');
-    if(autoInput) {
+    if (autoInput) {
       autoInput.focus();
     }
   }
+
   submitChanges() {
     this.props.dispatch(
       updateEstimationItem(this.props.estimationId, this.props.step.get('id'),
-                           {
-                             title: this.refs.titleEditor.getValue(),
-                             value: parseFloat(this.refs.valueEditor.getValue())
-                           })
+        {
+          title: this.refs.titleEditor.getValue(),
+          value: parseFloat(this.refs.valueEditor.getValue())
+        })
     )
   }
 
   keyDownHandler(event) {
-    if(event.key==='Enter') {
+    if (event.key === 'Enter') {
       this.submitChanges();
       this.stopEditing()
-    } else if(event.key==='Escape') {
+    } else if (event.key === 'Escape') {
       this.stopEditing();
     }
   }
 
-
   blurHandler() {
     setTimeout(() => {
         if (this.refs.titleEditor && this.refs.valueEditor &&
-            this.refs.titleEditor.input !== document.activeElement &&
-            this.refs.valueEditor.input !== document.activeElement) {
+          this.refs.titleEditor.input !== document.activeElement &&
+          this.refs.valueEditor.input !== document.activeElement) {
           this.submitChanges();
           this.stopEditing()
         }
       }, 100
     );
+  }
+
+  autoselect() {
+    this.refs.valueEditor.input.select();
   }
 
   render() {
@@ -71,7 +76,7 @@ class EstimationStep extends React.Component {
 
     if (this.props.step.get('isEdited', false)) {
       setTimeout(() => {
-        if(this.props.step.get('isEdited', true)) {
+        if (this.props.step.get('isEdited', true)) {
           this.refs.valueEditor.input.focus()
         }
       }, 50);
@@ -83,6 +88,7 @@ class EstimationStep extends React.Component {
         <TextField defaultValue={value} style={styles.valueEditor} className="valueEditor"
                    ref="valueEditor" type="number" id={"valueEditor" + id}
                    onKeyDown={(event) => this.keyDownHandler(event)}
+                   onFocus={() => this.autoselect()}
                    onBlur={() => this.blurHandler()}/>
 
       </ListItem>
