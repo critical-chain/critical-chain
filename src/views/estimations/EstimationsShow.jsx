@@ -1,4 +1,5 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import Immutable from 'immutable';
@@ -16,6 +17,12 @@ import {addEstimationItem, startEstimationItemEditing,
 
 
 class EstimationsShow extends React.Component {
+  constructor(props) {
+    super(props);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+  }
+
+
   addEstimationItem(value) {
     var itemId = this.props.dispatch(addEstimationItem(this.props.params.id, value));
     this.props.dispatch(startEstimationItemEditing(this.props.params.id, itemId));

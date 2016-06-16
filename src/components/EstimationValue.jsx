@@ -1,7 +1,14 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {List} from 'immutable';
 
 export default class EstimationValue extends React.Component {
+  constructor(props) {
+    super(props);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+  }
+
+
   render() {
     var values = this.props.estimation.get('steps', List([])).map((step) => {
       return step.get('value')

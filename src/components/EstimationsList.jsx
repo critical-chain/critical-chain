@@ -1,4 +1,5 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {withRouter} from 'react-router';
 
 import Paper from 'material-ui/Paper';
@@ -9,6 +10,12 @@ import EstimationValue from './EstimationValue';
 
 
 class EstimationsList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+  }
+
+
   goTo(estimation) {
     this.props.router.push('/estimations/' + estimation.get('id'));
   }

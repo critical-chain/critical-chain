@@ -1,4 +1,5 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 
@@ -11,6 +12,12 @@ import {addEstimation} from '../../actions';
 
 
 class EstimationsIndex extends React.Component {
+  constructor(props) {
+    super(props);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+  }
+
+
   addEstimation(value) {
     var newId = this.props.dispatch(addEstimation(value));
     this.props.router.push('/estimations/' + newId);
