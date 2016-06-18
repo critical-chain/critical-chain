@@ -1,4 +1,5 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {connect} from 'react-redux';
 
 import {ListItem} from 'material-ui/List';
@@ -20,6 +21,12 @@ const styles = {
 };
 
 class EstimationStep extends React.Component {
+  constructor(props) {
+    super(props);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+  }
+
+
   startEditing() {
     this.props.dispatch(
       startEstimationItemEditing(this.props.estimationId, this.props.step.get('id'))

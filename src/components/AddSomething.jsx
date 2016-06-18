@@ -1,4 +1,5 @@
 import React from 'react';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ReactDOM from 'react-dom';
 
 import TextField from 'material-ui/TextField';
@@ -24,6 +25,12 @@ const styles = {
 
 
 export default class AddSomething extends React.Component {
+  constructor(props) {
+    super(props);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+  }
+
+
   onSubmit() {
     var value = this.refs.thingTitle.getValue();
     var callback = this.props.callback;
