@@ -5,6 +5,12 @@ export function addEstimation(estimationTitle) {
   }
 }
 
+export function loadEstimation(estimationWithSteps) {
+  return (dispatch) => {
+    return dispatch({type: 'LOAD_ESTIMATION', estimation: estimationWithSteps})
+  }
+}
+
 export function addEstimationItem(estimationId, itemTitle) {
   return (dispatch, getState) => {
     dispatch({type: 'ADD_ESTIMATION_ITEM', estimationId, itemTitle});

@@ -5,10 +5,17 @@ import uuid from 'uuid';
 
 function addEstimation(estimations, estimationTitle) {
   var estimationId = uuid.v4();
+  window.estimationsStorage.put({_id: "estimation:" + estimationId, title: estimationTitle});
   return estimations.push(
     Immutable.Map({id: estimationId, title: estimationTitle, steps: Immutable.List([])})
   );
 }
+
+function loadEstimation(estimations, estimation) {
+  var immutableEstimation = Immutable.fromJS(estimation);
+  return estimations.push(immutableEstimation);
+}
+
 
 function addEstimationItem(estimations, estimationId, title) {
   return estimations.map((estimation) => {
@@ -90,6 +97,8 @@ export default function (state = {}, action) {
       return Immutable.fromJS(action.state);
     case 'ADD_ESTIMATION':
       return addEstimation(state, action.estimationTitle);
+    case 'LOAD_ESTIMATION':
+      return loadEstimation(state, action.estimation);
     case 'ADD_ESTIMATION_ITEM':
       return addEstimationItem(state, action.estimationId, action.itemTitle);
     case 'UPDATE_ESTIMATION_ITEM':

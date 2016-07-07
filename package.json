@@ -44,6 +44,7 @@
   "dependencies": {
     "immutable": "^3.8.1",
     "material-ui": "^0.15.0",
+    "pouchdb": "^5.4.4",
     "react": "^15.1.0",
     "react-addons-pure-render-mixin": "^15.1.0",
     "react-dom": "^15.1.0",
@@ -53,6 +54,7 @@
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
-    "uuid": "^2.0.2"
+    "uuid": "^2.0.2",
+    "worker-pouch": "^1.1.1"
   }
 }
