@@ -25,10 +25,9 @@ function loadEstimation(estimations, estimation) {
 
 
 function addEstimationItem(estimations, estimationId, title) {
-  var estimationItemId = uuid.v4();
-    window.estimationsStorage.put({_id: estimationItemKey(estimationId, estimationItemId), title: title, value: 0});
   return estimations.map((estimation) => {
-    if (estimation.get('id') === estimationId) {
+    if (estimation.get('id') === estimationId) {var estimationItemId = uuid.v4();
+      window.estimationsStorage.put({_id: estimationItemKey(estimationId, estimationItemId), title: title, value: 0});
       return estimation.update('steps', list => list.push(Immutable.Map({
         id: estimationItemId, title, value: 0
       })));
@@ -39,13 +38,13 @@ function addEstimationItem(estimations, estimationId, title) {
 }
 
 function updateEstimationItem(estimations, estimationId, estimationItemId, newValues) {
-  window.estimationsStorage.get(estimationItemKey(estimationId, estimationItemId)).then(function (doc) {
-    doc.title = newValues.title;
-    doc.value = newValues.value;
-    return window.estimationsStorage.put(doc);
-  });
   return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
+      window.estimationsStorage.get(estimationItemKey(estimationId, estimationItemId)).then(function (doc) {
+        doc.title = newValues.title;
+        doc.value = newValues.value;
+        return window.estimationsStorage.put(doc);
+      });
       return estimation.update('steps', steps => steps.map(step => {
         if (step.get('id') === estimationItemId) {
           return step.update('title', () => newValues.title).update('value', () => newValues.value);
@@ -62,6 +61,10 @@ function updateEstimationItem(estimations, estimationId, estimationItemId, newVa
 function deleteEstimationItem(estimations, estimationId, estimationItemId) {
   return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
+      window.estimationsStorage.get(estimationItemKey(estimationId, estimationItemId)).then(function (doc) {
+        doc._deleted = true;
+        return window.estimationsStorage.put(doc);
+      });
       return estimation.update('steps', steps => steps.filterNot(step => step.get('id')===estimationItemId));
     } else {
       return estimation;
@@ -72,6 +75,8 @@ function deleteEstimationItem(estimations, estimationId, estimationItemId) {
 function restoreEstimationItem(estimations, estimationId, position, estimationItem) {
   return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
+      window.estimationsStorage.put({_id: estimationItemKey(estimationId, estimationItem.get('id')),
+        title: estimationItem.get('title'), value: estimationItem.get('value')});
       return estimation.update('steps', steps => steps.insert(position, estimationItem));
     } else {
       return estimation;
