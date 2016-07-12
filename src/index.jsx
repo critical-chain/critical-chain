@@ -32,7 +32,7 @@ import { loadEstimation } from './actions';
 PouchDB.adapter('worker', WorkerPouch);
 window.estimationsStorage = new PouchDB('ccng', {adapter: 'worker'});
 
-window.estimationsStorage.allDocs({include_docs: true, startkey: 'estimation:', endKey: "estimation:\uffff"}).then(
+window.estimationsStorage.allDocs({include_docs: true, startkey: 'estimation:', endkey: "estimation:\uffff"}).then(
   function (estimationResults) {
     estimationResults.rows.map(function (estimation) {
       var estimationId = estimation.key.slice(11);
@@ -46,7 +46,7 @@ window.estimationsStorage.allDocs({include_docs: true, startkey: 'estimation:', 
             title: estimation.doc.title,
             steps: estimationItemResults.rows.map(function (estimationItem) {
               return {
-                id: estimationItem.key.slice(48),
+                id: estimationItem.key.slice(53),
                 title: estimationItem.doc.title,
                 value: estimationItem.doc.value
               };

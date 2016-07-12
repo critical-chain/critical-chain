@@ -2,10 +2,17 @@ import Immutable from 'immutable';
 
 import uuid from 'uuid';
 
+function estimationKey(estimationId) {
+  return "estimation:" + estimationId;
+}
+
+function estimationItemKey(estimationId, estimationItemId) {
+  return "estimation_item:" + estimationId + ':' + estimationItemId;
+}
 
 function addEstimation(estimations, estimationTitle) {
   var estimationId = uuid.v4();
-  window.estimationsStorage.put({_id: "estimation:" + estimationId, title: estimationTitle});
+  window.estimationsStorage.put({_id: estimationKey(estimationId), title: estimationTitle});
   return estimations.push(
     Immutable.Map({id: estimationId, title: estimationTitle, steps: Immutable.List([])})
   );
@@ -18,9 +25,10 @@ function loadEstimation(estimations, estimation) {
 
 
 function addEstimationItem(estimations, estimationId, title) {
+  var estimationItemId = uuid.v4();
+    window.estimationsStorage.put({_id: estimationItemKey(estimationId, estimationItemId), title: title, value: 0});
   return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
-      var estimationItemId = uuid.v4();
       return estimation.update('steps', list => list.push(Immutable.Map({
         id: estimationItemId, title, value: 0
       })));
@@ -31,6 +39,11 @@ function addEstimationItem(estimations, estimationId, title) {
 }
 
 function updateEstimationItem(estimations, estimationId, estimationItemId, newValues) {
+  window.estimationsStorage.get(estimationItemKey(estimationId, estimationItemId)).then(function (doc) {
+    doc.title = newValues.title;
+    doc.value = newValues.value;
+    return window.estimationsStorage.put(doc);
+  });
   return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
       return estimation.update('steps', steps => steps.map(step => {

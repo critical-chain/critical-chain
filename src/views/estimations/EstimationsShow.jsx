@@ -87,7 +87,7 @@ class EstimationsShow extends React.Component {
   }
 
   render() {
-    this.redirectIfNoEstimationFound();
+    // this.redirectIfNoEstimationFound();
 
     var estimation = this.getEstimation();
     return <main className="row">
