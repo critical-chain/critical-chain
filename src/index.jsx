@@ -25,19 +25,20 @@ import EstimationsShow from './views/estimations/EstimationsShow';
 import Header from './components/Header';
 require('./main.css');
 
-import estimationReducers from './reducers/estimations';
-import notificationReducers from './reducers/notifications';
+import estimationReducer from './reducers/estimations';
+import notificationReducer from './reducers/notifications';
+import persistenceReducer from './reducers/persistence';
 import { loadEstimation } from './actions';
 
 PouchDB.adapter('worker', WorkerPouch);
-window.estimationsStorage = new PouchDB('ccng', {adapter: 'worker'});
+var estimationsStorage = new PouchDB('ccng', {adapter: 'worker'});
 
-window.estimationsStorage.allDocs({include_docs: true, startkey: 'estimation:', endkey: "estimation:\uffff"}).then(
+estimationsStorage.allDocs({include_docs: true, startkey: 'estimation:', endkey: "estimation:\uffff"}).then(
   function (estimationResults) {
     estimationResults.rows.map(function (estimation) {
       var estimationId = estimation.key.slice(11);
       var estimationItemsKey = 'estimation_item:' + estimationId + ':';
-      window.estimationsStorage.allDocs({
+      estimationsStorage.allDocs({
         include_docs: true, startkey: estimationItemsKey, endkey: estimationItemsKey + "\uffff"
       }).then(
         function (estimationItemResults) {
@@ -59,8 +60,8 @@ window.estimationsStorage.allDocs({include_docs: true, startkey: 'estimation:', 
 );
 
 const store = createStore(
-  combineReducers({routing: routerReducer, estimations: estimationReducers, notifications: notificationReducers}),
-  {routing: {}, estimations: new Immutable.List(), notifications: Immutable.Map({})},
+  combineReducers({routing: routerReducer, estimations: estimationReducer, notifications: notificationReducer, persistence: persistenceReducer}),
+  {routing: {}, estimations: new Immutable.List(), notifications: Immutable.Map({}), persistence: estimationsStorage},
   compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f

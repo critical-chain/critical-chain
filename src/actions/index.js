@@ -1,7 +1,10 @@
+import uuid from "uuid";
+
 export function addEstimation(estimationTitle) {
-  return (dispatch, getState) => {
-    dispatch({type: 'ADD_ESTIMATION', estimationTitle});
-    return getState().estimations.last().get('id');
+  var estimationId = uuid.v4();
+  return (dispatch) => {
+    dispatch({type: 'ADD_ESTIMATION', estimationId, estimationTitle});
+    return estimationId;
   }
 }
 
@@ -12,8 +15,9 @@ export function loadEstimation(estimationWithSteps) {
 }
 
 export function addEstimationItem(estimationId, itemTitle) {
+  var estimationItemId = uuid.v4();
   return (dispatch, getState) => {
-    dispatch({type: 'ADD_ESTIMATION_ITEM', estimationId, itemTitle});
+    dispatch({type: 'ADD_ESTIMATION_ITEM', estimationId, estimationItemId, itemTitle});
     return getState().estimations
       .find(estimation => estimation.get('id')===estimationId)
       .get('steps').last().get('id')
