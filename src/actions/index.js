@@ -66,3 +66,12 @@ export function clearEstimationItemNotification() {
     return dispatch({type: 'CLEAR_ESTIMATION_ITEM_NOTIFICATION'})
   }
 }
+export function setEstimationsListFilter(filterText) {
+  return (dispatch) => {
+    if(filterText === undefined || filterText === '') {
+      return dispatch({type: 'CLEAR_ESTIMATIONS_LIST_FILTER'})
+    } else {
+      return dispatch({type: 'SET_ESTIMATIONS_LIST_FILTER', filterText})
+    }
+  }
+}

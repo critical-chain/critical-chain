@@ -120,7 +120,7 @@ class EstimationsShow extends React.Component {
 function _mapStateToProps(state) {
   return {
     estimations: state.estimations || Immutable.List([]),
-    itemToRestore: state.notifications.get('estimationItem')
+    itemToRestore: state.interface.get('estimationItemNotification')
   };
 }
 export default connect(_mapStateToProps)(withRouter(EstimationsShow));

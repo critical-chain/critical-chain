@@ -26,7 +26,7 @@ import Header from './components/Header';
 require('./main.css');
 
 import estimationReducer from './reducers/estimations';
-import notificationReducer from './reducers/notifications';
+import interfaceReducer from './reducers/interface';
 import persistenceReducer from './reducers/persistence';
 import { loadEstimation } from './actions';
 
@@ -60,8 +60,8 @@ estimationsStorage.allDocs({include_docs: true, startkey: 'estimation:', endkey:
 );
 
 const store = createStore(
-  combineReducers({routing: routerReducer, estimations: estimationReducer, notifications: notificationReducer, persistence: persistenceReducer}),
-  {routing: {}, estimations: new Immutable.List(), notifications: Immutable.Map({}), persistence: estimationsStorage},
+  combineReducers({routing: routerReducer, estimations: estimationReducer, interface: interfaceReducer, persistence: persistenceReducer}),
+  {routing: {}, estimations: new Immutable.List(), interface: Immutable.Map({}), persistence: estimationsStorage},
   compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f

@@ -26,7 +26,7 @@ class EstimationsIndex extends React.Component {
   render() {
     return <main className="row center-md">
       <div className="col-md-3 col-xs-12 start-md">
-        <EstimationsList estimations={this.props.estimations}/>
+        <EstimationsList estimations={this.props.estimations} filter={this.props.filter}/>
         <AddSomething thing="estimation" callback={(value) => this.addEstimation(value)}/>
       </div>
     </main>
@@ -34,6 +34,9 @@ class EstimationsIndex extends React.Component {
 }
 
 function _mapStateToProps(state) {
-  return {estimations: state.estimations || Immutable.List([])};
+  return {
+    estimations: state.estimations || Immutable.List([]),
+    filter: state.interface.get('estimationsListFilter') || ''
+  };
 }
 export default connect(_mapStateToProps)(withRouter(EstimationsIndex));
