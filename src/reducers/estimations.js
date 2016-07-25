@@ -2,7 +2,7 @@ import Immutable from 'immutable';
 
 function addEstimation(estimations, estimationId, estimationTitle) {
   return estimations.push(
-    Immutable.Map({id: estimationId, title: estimationTitle, steps: Immutable.List([])})
+    Immutable.Map({id: estimationId, title: estimationTitle, steps: Immutable.List()})
   );
 }
 
@@ -12,11 +12,11 @@ function loadEstimation(estimations, estimation) {
 }
 
 
-function addEstimationItem(estimations, estimationId, estimationItemId, title) {
+function addEstimationItem(estimations, estimationId, estimationItemId, title, position) {
   return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
       return estimation.update('steps', list => list.push(Immutable.Map({
-        id: estimationItemId, title, value: 0
+        id: estimationItemId, title, position, value: 0
       })));
     } else {
       return estimation;
@@ -53,7 +53,9 @@ function deleteEstimationItem(estimations, estimationId, estimationItemId) {
 function restoreEstimationItem(estimations, estimationId, position, estimationItem) {
   return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
-      return estimation.update('steps', steps => steps.insert(position, estimationItem));
+      return estimation.update('steps',
+        steps => steps.push(estimationItem).sortBy(step => step.get('position', 0))
+      );
     } else {
       return estimation;
     }
@@ -94,7 +96,7 @@ export default function (state = {}, action) {
     case 'LOAD_ESTIMATION':
       return loadEstimation(state, action.estimation);
     case 'ADD_ESTIMATION_ITEM':
-      return addEstimationItem(state, action.estimationId, action.estimationItemId, action.itemTitle);
+      return addEstimationItem(state, action.estimationId, action.estimationItemId, action.itemTitle, action.position);
     case 'UPDATE_ESTIMATION_ITEM':
       return updateEstimationItem(state, action.estimationId, action.estimationItemId, action.newValues);
     case 'DELETE_ESTIMATION_ITEM':

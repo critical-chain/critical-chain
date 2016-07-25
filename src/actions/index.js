@@ -1,4 +1,5 @@
 import uuid from "uuid";
+import Immutable from 'immutable';
 
 export function addEstimation(estimationTitle) {
   var estimationId = uuid.v4();
@@ -16,11 +17,18 @@ export function loadEstimation(estimationWithSteps) {
 
 export function addEstimationItem(estimationId, itemTitle) {
   var estimationItemId = uuid.v4();
+
   return (dispatch, getState) => {
-    dispatch({type: 'ADD_ESTIMATION_ITEM', estimationId, estimationItemId, itemTitle});
-    return getState().estimations
-      .find(estimation => estimation.get('id')===estimationId)
-      .get('steps').last().get('id')
+    var estimation = getState().estimations
+      .find(estimation => estimation.get('id') === estimationId);
+    var position = (
+      (estimation
+          .get('steps', Immutable.List())
+          .maxBy(step => step.get('position', 0)) || Immutable.Map()
+      ).get('position', 0)) + Math.random();
+
+    dispatch({type: 'ADD_ESTIMATION_ITEM', estimationId, estimationItemId, itemTitle, position});
+    return estimationItemId;
   }
 }
 export function updateEstimationItem(estimationId, estimationItemId, newValues) {

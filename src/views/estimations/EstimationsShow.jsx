@@ -64,7 +64,7 @@ class EstimationsShow extends React.Component {
   }
 
   renderList(estimation) {
-    var estimationItems = estimation.get('steps', Immutable.List([]));
+    var estimationItems = estimation.get('steps', Immutable.List());
     if (estimationItems.size > 0) {
       return <List>
         {

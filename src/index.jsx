@@ -49,9 +49,10 @@ estimationsStorage.allDocs({include_docs: true, startkey: 'estimation:', endkey:
               return {
                 id: estimationItem.key.slice(53),
                 title: estimationItem.doc.title,
+                position: estimationItem.doc.position || 0,
                 value: estimationItem.doc.value
               };
-            })
+            }).sort((a, b) => a.position - b.position)
           }));
         }
       );
