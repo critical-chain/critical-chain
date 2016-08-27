@@ -1,0 +1,15 @@
+---
+- hosts: all
+  vars:
+  - ansible_user: ubuntu
+  - ansible_become: true
+  tasks:
+  - apt_repository: repo='ppa:couchdb/stable'
+  - apt: update_cache=yes upgrade=full cache_valid_time=36000
+  - apt: name=couchdb state=latest
+  - lineinfile:
+      dest: /etc/couchdb/local.ini
+      regexp: ^;?bind_address
+      line: bind_address=0.0.0.0
+      state: present
+  - service: name=couchdb state=started
