@@ -6,13 +6,14 @@ function addEstimation(pouchDB, estimationId, estimationTitle) {
 }
 
 function addEstimationItem(pouchDB, estimationId, estimationItemId, title, position) {
-  pouchDB.put({_id: estimationItemKey(estimationId, estimationItemId), title, position, value: 0});
+  pouchDB.put({_id: estimationItemKey(estimationId, estimationItemId), title, position, value: 0, quantity: 1});
   return pouchDB;
 }
 function updateEstimationItem(pouchDB, estimationId, estimationItemId, newValues) {
   pouchDB.get(estimationItemKey(estimationId, estimationItemId)).then(function (doc) {
     doc.title = newValues.title;
     doc.value = newValues.value;
+    doc.quantity = newValues.quantity;
     return pouchDB.put(doc);
   });
   return pouchDB;
@@ -28,11 +29,15 @@ function deleteEstimationItem(pouchDB, estimationId, estimationItemId) {
 
 function restoreEstimationItem(pouchDB, estimationId, estimationItem) {
   pouchDB.put({_id: estimationItemKey(estimationId, estimationItem.get('id')),
-    title: estimationItem.get('title'), position: estimationItem.get('position'), value: estimationItem.get('value')});
+    title: estimationItem.get('title'), position: estimationItem.get('position'),
+    value: estimationItem.get('value'), quantity: estimationItem.get('quantity')});
   return pouchDB;
 }
 
 export default function (pouchDB = {}, action) {
+  if (action.transient) {
+    return pouchDB;
+  }
   switch (action.type) {
     case 'ADD_ESTIMATION':
       return addEstimation(pouchDB, action.estimationId, action.estimationTitle);

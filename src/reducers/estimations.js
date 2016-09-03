@@ -16,7 +16,7 @@ function addEstimationItem(estimations, estimationId, estimationItemId, title, p
   return estimations.map((estimation) => {
     if (estimation.get('id') === estimationId) {
       return estimation.update('steps', list => list.push(Immutable.Map({
-        id: estimationItemId, title, position, value: 0
+        id: estimationItemId, title, position, value: 0, quantity: 1
       })));
     } else {
       return estimation;
@@ -29,7 +29,9 @@ function updateEstimationItem(estimations, estimationId, estimationItemId, newVa
     if (estimation.get('id') === estimationId) {
       return estimation.update('steps', steps => steps.map(step => {
         if (step.get('id') === estimationItemId) {
-          return step.update('title', () => newValues.title).update('value', () => newValues.value);
+          return step.update('title', () => newValues.title).
+                      update('value', () => newValues.value).
+                      update('quantity', () => newValues.quantity);
         } else {
           return step;
         }

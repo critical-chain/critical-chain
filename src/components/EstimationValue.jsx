@@ -10,14 +10,16 @@ export default class EstimationValue extends React.Component {
 
 
   render() {
-    var values = this.props.estimation.get('steps', List([])).map((step) => {
-      return step.get('value')
+    var steps = this.props.estimation.get('steps', List([])).map((step) => {
+      return {value: step.get('value', 0), quantity: step.get('quantity', 1)}
     });
     var sum = 0;
+    var size = 1;
     var buffer = 0;
-    if(values.size > 0) {
-      sum = values.reduce((a, b) => a + b);
-      buffer = (sum / Math.sqrt(values.size));
+    if(steps.size > 0) {
+      sum = steps.map(a => a.value*a.quantity).reduce((a, b) => a+b);
+      size = steps.map(a => a.quantity).reduce((a, b) => a+b);
+      buffer = (sum / Math.sqrt(size));
     }
     return <div className="estimationValue">
       <span className="base">{sum.toFixed(1)}</span>

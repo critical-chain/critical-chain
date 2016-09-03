@@ -50,7 +50,8 @@ estimationsStorage.allDocs({include_docs: true, startkey: 'estimation:', endkey:
                 id: estimationItem.key.slice(53),
                 title: estimationItem.doc.title,
                 position: estimationItem.doc.position || 0,
-                value: estimationItem.doc.value
+                value: estimationItem.doc.value,
+                quantity: estimationItem.doc.quantity || 1
               };
             }).sort((a, b) => a.position - b.position)
           }));

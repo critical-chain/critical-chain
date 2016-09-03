@@ -13,10 +13,13 @@ import {startEstimationItemEditing, stopEstimationItemsEditing,
 
 const styles = {
   titleEditor: {
-    width: 'calc(100% - 5em - 54px)'
+    width: 'calc(100% - 9em - 60px)'
   },
   valueEditor: {
     maxWidth: '4em',
+  },
+  quantityEditor: {
+    maxWidth: '3em'
   }
 };
 
@@ -48,7 +51,8 @@ class EstimationStep extends React.Component {
       updateEstimationItem(this.props.estimationId, this.props.step.get('id'),
         {
           title: this.refs.titleEditor.getValue(),
-          value: parseFloat(this.refs.valueEditor.getValue())
+          value: parseFloat(this.refs.valueEditor.getValue()),
+          quantity: parseInt(this.refs.quantityEditor.getValue())
         })
     )
   }
@@ -71,9 +75,10 @@ class EstimationStep extends React.Component {
 
   blurHandler() {
     setTimeout(() => {
-        if (this.refs.titleEditor && this.refs.valueEditor &&
+        if (this.refs.titleEditor && this.refs.valueEditor && this.refs.quantityEditor &&
           this.refs.titleEditor.input !== document.activeElement &&
-          this.refs.valueEditor.input !== document.activeElement) {
+          this.refs.valueEditor.input !== document.activeElement &&
+          this.refs.quantityEditor.input !== document.activeElement) {
           this.submitChanges();
           this.stopEditing()
         }
@@ -85,10 +90,19 @@ class EstimationStep extends React.Component {
     this.refs.valueEditor.input.select();
   }
 
+  quantityIndicator(quantity, value) {
+    if (quantity > 1) {
+      return <span>{quantity}×<strong>{value}</strong>={quantity*value}</span>;
+    } else {
+      return <span><strong>{value}</strong></span>;
+    }
+  }
+
   render() {
     var id = this.props.step.get('id');
     var title = this.props.step.get('title', '');
     var value = this.props.step.get('value', 0);
+    var quantity = this.props.step.get('quantity', 1);
 
     if (this.props.step.get('isEdited', false)) {
       setTimeout(() => {
@@ -96,26 +110,34 @@ class EstimationStep extends React.Component {
           this.refs.valueEditor.input.focus()
         }
       }, 50);
-      return <ListItem>
-        <TextField defaultValue={title} style={styles.titleEditor} className="titleEditor"
-                   ref="titleEditor" id={"titleEditor" + id}
-                   onKeyDown={(event) => this.keyDownHandler(event)}
-                   onBlur={() => this.blurHandler()}/>
-        <div style={{float: 'right'}}>
-          <TextField defaultValue={value} style={styles.valueEditor} className="valueEditor"
-                     ref="valueEditor" type="number" id={"valueEditor" + id}
+      return <ListItem primaryText={
+          <TextField defaultValue={title} style={styles.titleEditor} className="titleEditor"
+                     ref="titleEditor" id={"titleEditor" + id}
                      onKeyDown={(event) => this.keyDownHandler(event)}
-                     onFocus={() => this.autoselect()}
                      onBlur={() => this.blurHandler()}/>
+        } secondaryText={
+          <span>
+            <TextField defaultValue={quantity} style={styles.quantityEditor} className="quantityEditor"
+                       ref="quantityEditor" type="number" id={"quantityEditor" + id}
+                       onKeyDown={(event) => this.keyDownHandler(event)}
+                       onBlur={() => this.blurHandler()} />
+            <span>×</span>
+            <TextField defaultValue={value} style={styles.valueEditor} className="valueEditor"
+                       ref="valueEditor" type="number" id={"valueEditor" + id}
+                       onKeyDown={(event) => this.keyDownHandler(event)}
+                       onFocus={() => this.autoselect()}
+                       onBlur={() => this.blurHandler()}/>
+          </span>
+        } rightIconButton={
           <IconButton children={<ActionDelete />} tooltip={<span>Delete</span>}
                       onTouchTap={(event) => {
                         this.deleteItem();
                         event.stopPropagation();
                       }}/>
-        </div>
-      </ListItem>;
+        }
+      />;
     } else {
-      return <ListItem onTouchTap={() => this.startEditing()} rightIcon={<span>{value}</span>}>{title}</ListItem>
+      return <ListItem onTouchTap={() => this.startEditing()} secondaryText={this.quantityIndicator(quantity, value)} primaryText={title} />
     }
   }
 }
