@@ -61,6 +61,23 @@ estimationsStorage.allDocs({include_docs: true, startkey: 'estimation:', endkey:
   }
 );
 
+// estimationsStorage.sync(remoteDB, {
+//   live: true,
+//   retry: true
+// }).on('change', function (change) {
+//   // yo, something changed!
+//   // Lauch actions with transient: true from here to avoid loops
+// }).on('paused', function (info) {
+//   // replication was paused, usually because of a lost connection
+// }).on('active', function (info) {
+//   // replication was resumed
+// }).on('error', function (err) {
+//   // totally unhandled error (shouldn't happen)
+// });
+
+// Also — JWT auth, https://github.com/etrepum/couchperuser
+// https://github.com/nolanlawson/socket-pouch or https://github.com/pgte/pouch-websocket-sync ?
+
 const store = createStore(
   combineReducers({routing: routerReducer, estimations: estimationReducer, interface: interfaceReducer, persistence: persistenceReducer}),
   {routing: {}, estimations: new Immutable.List(), interface: Immutable.Map({}), persistence: estimationsStorage},
