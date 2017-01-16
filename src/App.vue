@@ -2,7 +2,7 @@
   <div id="app" class="container">
     <div class="columns">
       <div class="three-fourths column centered">
-        <EstimationsList></EstimationsList>
+        <router-view></router-view>
       </div>
     </div>
   </div>
