@@ -1,8 +1,12 @@
 <template>
   <div id="app" class="container">
-    <div class="blankslate">
-      <h3>This is a blank slate</h3>
-      <p>Use it to provide information when no dynamic content exists.</p>
+    <div class="columns">
+      <div class="three-fourths column centered">
+        <div class="blankslate">
+          <h3>This is a blank slate</h3>
+          <p>Use it to provide information when no dynamic content exists.</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
