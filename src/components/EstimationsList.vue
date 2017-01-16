@@ -10,7 +10,14 @@
     </nav>
 
     <div class="clearfix row">
-      <button class="btn btn-outline float-right" v-on:click="addEstimation({title: 'foo'})">Add an item</button>
+      <div class="input-group float-right">
+        <input class="form-control input-lg" type="text" placeholder="New estimation title" autofocus
+               v-model="newEstimationTitle" @keyup.enter="addEstimation(newEstimationTitle)">
+        <button class="btn btn-primary"
+                @click="addEstimation(newEstimationTitle)"
+                :disabled="addDisabled"
+                title="Add estimation">⊕</button>
+      </div>
     </div>
   </div>
 </template>
@@ -19,16 +26,27 @@
   import { mapGetters, mapMutations } from 'vuex'
 
   export default {
+    data: () => {
+      return { newEstimationTitle: '' }
+    },
     computed: {
       ...mapGetters({
-        estimations: 'listEstimations'
+        estimations: 'listEstimations',
       }),
       empty() {
         return this.estimations.length == 0
+      },
+      addDisabled() {
+        return ((typeof this.newEstimationTitle !== 'string') || (this.newEstimationTitle.length == 0))
       }
     },
     methods: {
-      ...mapMutations({addEstimation: 'ADD_ESTIMATION'})
+      addEstimation(title) {
+        if ((typeof title === 'string') && (title.length > 0)) {
+          this.$store.commit('ADD_ESTIMATION', {title})
+          this.newEstimationTitle = ''
+        }
+      }
     }
   }
 </script>
@@ -36,5 +54,8 @@
 <style>
   .row {
     margin-top: 15px;
+  }
+  .btn-primary {
+    font-size: 140% !important;
   }
 </style>

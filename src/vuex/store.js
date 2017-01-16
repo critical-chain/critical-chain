@@ -13,6 +13,7 @@ const getters = {
 
 const mutations = {
   ADD_ESTIMATION (state, payload) {
+    payload.items = payload.items || []
     state.estimations.push(payload)
   }
 }
