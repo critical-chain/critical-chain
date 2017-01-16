@@ -6,7 +6,10 @@
     </div>
 
     <nav class="menu" v-else>
-      <a class="menu-item" v-for="estimation in estimations">{{estimation.title}}</a>
+      <router-link :to="{ name: 'estimation', params: {title: estimation.title}}"
+                   class="menu-item" v-for="estimation in estimations">
+        {{estimation.title}}
+      </router-link>
     </nav>
 
     <div class="clearfix row">
