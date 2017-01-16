@@ -6,7 +6,7 @@
     </div>
 
     <nav class="menu" v-else>
-      <router-link :to="{ name: 'estimation', params: {title: estimation.title}}"
+      <router-link :to="{ name: 'estimation', params: {id: estimation.id}}"
                    class="menu-item" v-for="estimation in estimations">
         {{estimation.title}}
       </router-link>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapMutations } from 'vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
     data: () => {
@@ -46,7 +46,7 @@
     methods: {
       addEstimation(title) {
         if ((typeof title === 'string') && (title.length > 0)) {
-          this.$store.commit('ADD_ESTIMATION', {title})
+          this.$store.dispatch('ADD_ESTIMATION', {title})
           this.newEstimationTitle = ''
         }
       }
