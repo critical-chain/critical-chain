@@ -12,3 +12,13 @@ export default {
     commit('ADD_ESTIMATION', estimation)
   }
 }
+
+export function loadEstimations() {
+  var estimations = []
+  db.allDocs({include_docs: true, startkey: 'estimation:', endkey: "estimation:\uffff"}).then((results => {
+    results.rows.map(estimation => {
+      estimations.push(estimation.doc)
+    })
+  }))
+  return estimations
+}

@@ -3,8 +3,10 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+import { loadEstimations } from './actions'
+
 const state = {
-  estimations: []
+  estimations: loadEstimations()
 }
 
 const getters = {
@@ -23,5 +25,6 @@ export default new Vuex.Store({
   state,
   getters,
   mutations,
-  actions
+  actions,
+  // strict: true // TODO Enable me!
 })
