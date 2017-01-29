@@ -10,7 +10,10 @@ const state = {
 }
 
 const getters = {
-  listEstimations: state => state.estimations
+  listEstimations: state => state.estimations,
+  getEstimation: state => (uuid) => {
+    return state.estimations.find(e => e.id === uuid) || {}
+  }
 }
 
 const mutations = {

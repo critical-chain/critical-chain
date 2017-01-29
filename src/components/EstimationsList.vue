@@ -54,7 +54,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .row {
     margin-top: 15px;
   }

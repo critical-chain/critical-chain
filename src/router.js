@@ -9,6 +9,6 @@ import Estimation from './components/Estimation'
 export default new VueRouter({
   routes: [
     { path: '/', component: EstimationsList },
-    { path: '/estimation/:id', name: 'estimation', component: Estimation }
+    { path: '/estimation/:id', name: 'estimation', component: Estimation, props: true }
   ]
 })
