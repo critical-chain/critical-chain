@@ -3,10 +3,9 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-import { loadEstimations } from './actions'
-
 const state = {
-  estimations: loadEstimations()
+  estimations: [],
+  loaded: false
 }
 
 const getters = {
@@ -19,7 +18,14 @@ const getters = {
 const mutations = {
   ADD_ESTIMATION (state, estimation) {
     state.estimations.push(estimation)
-  }
+  },
+  LOAD_ESTIMATIONS (state, estimations) {
+    state.estimations = estimations
+  },
+  MARK_AS_LOADED (state) {
+    state.loaded = true
+  },
+  ALREADY_LOADED () {}
 }
 
 import actions from './actions'
@@ -29,5 +35,5 @@ export default new Vuex.Store({
   getters,
   mutations,
   actions,
-  // strict: true // TODO Enable me!
+  strict: true
 })

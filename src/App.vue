@@ -2,7 +2,8 @@
   <div id="app" class="container">
     <div class="columns">
       <div class="three-fourths column centered">
-        <router-view></router-view>
+        <router-view v-if="loaded"></router-view>
+        <h1 v-else>Loading, please wait</h1>
       </div>
     </div>
   </div>
@@ -15,6 +16,11 @@ export default {
   name: 'app',
   components: {
     EstimationsList
+  },
+  computed: {
+    loaded() {
+      return this.$store.state.loaded
+    }
   }
 }
 </script>

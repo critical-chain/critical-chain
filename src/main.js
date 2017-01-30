@@ -10,10 +10,17 @@ sync(store, router)
 
 import './vendor/primer.v4_3_0.css'
 
-new Vue({
+const app = new Vue({
   el: '#app',
   template: '<App/>',
   components: { App },
   store,
-  router
+  router,
+  methods: {
+    init() {
+      this.$store.dispatch('LOAD_ESTIMATIONS')
+    }
+  }
 })
+
+app.init()

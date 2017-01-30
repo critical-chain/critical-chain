@@ -10,15 +10,15 @@ export default {
     let estimation = {_id: 'estimation:'+estimationId, id: estimationId, title, items: []}
     db.put(estimation)
     commit('ADD_ESTIMATION', estimation)
-  }
-}
-
-export function loadEstimations() {
-  var estimations = []
-  db.allDocs({include_docs: true, startkey: 'estimation:', endkey: "estimation:\uffff"}).then((results => {
-    results.rows.map(estimation => {
-      estimations.push(estimation.doc)
+  },
+  LOAD_ESTIMATIONS({commit, state}) {
+    db.allDocs({include_docs: true, startkey: 'estimation:', endkey: "estimation:\uffff"}).then(results => {
+      if(!state.loaded) {
+        commit('LOAD_ESTIMATIONS', results.rows.map(estimation => estimation.doc))
+        commit('MARK_AS_LOADED')
+      } else {
+        commit('ALREADY_LOADED')
+      }
     })
-  }))
-  return estimations
+  }
 }
