@@ -25,7 +25,10 @@ const mutations = {
   MARK_AS_LOADED (state) {
     state.loaded = true
   },
-  ALREADY_LOADED () {}
+  ALREADY_LOADED () {},
+  ADD_ESTIMATION_ITEM (state, item) {
+    state.estimations.find(e=> e.id=== item.estimationId).items.push(item)
+  }
 }
 
 import actions from './actions'
