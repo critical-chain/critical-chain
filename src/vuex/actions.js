@@ -4,12 +4,15 @@ import uuid from 'uuid'
 const db = new PouchDB('estimations')
 window.PouchDB = PouchDB // TODO remove in production
 
+import router from '../router'
+
 export default {
   ADD_ESTIMATION({commit}, {title}) {
     let estimationId = uuid.v4()
     let estimation = {_id: 'estimation:'+estimationId, id: estimationId, title, items: []}
     db.put(estimation)
     commit('ADD_ESTIMATION', estimation)
+    router.push({name: 'estimation', params: {id: estimation.id}})
   },
   LOAD_ESTIMATIONS({commit, state}) {
     db.allDocs({include_docs: true, startkey: 'estimation:', endkey: "estimation:\uffff"}).then(results => {

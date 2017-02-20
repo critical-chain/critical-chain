@@ -6,9 +6,11 @@ Vue.use(VueRouter)
 import EstimationsList from './components/EstimationsList'
 import Estimation from './components/Estimation'
 
-export default new VueRouter({
+const router = new VueRouter({
   routes: [
     { path: '/', component: EstimationsList },
     { path: '/estimation/:id', name: 'estimation', component: Estimation, props: true }
   ]
 })
+
+export default router
