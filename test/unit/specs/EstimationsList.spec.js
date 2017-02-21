@@ -3,8 +3,7 @@ import Vue from 'vue'
 import EstimationsList from 'src/components/EstimationsList'
 import store from 'src/vuex/store'
 
-
-function render(estimations) {
+function render (estimations) {
   store.commit('LOAD_ESTIMATIONS', estimations)
   const Component = Vue.extend({ ...EstimationsList, store })
   let rendered = new Component().$mount()
