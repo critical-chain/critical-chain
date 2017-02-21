@@ -8,7 +8,7 @@ import router from './router'
 
 sync(store, router)
 
-import './vendor/primer.v4_3_0.css'
+import './vendor/primer.v4_7_0.css'
 
 const app = new Vue({
   el: '#app',
