@@ -14,7 +14,7 @@
 
     <div class="clearfix row">
       <div class="input-group float-right">
-        <input class="form-control input-lg" type="text" placeholder="New estimation title" autofocus
+        <input class="form-control input-lg" type="text" placeholder="New estimation title" autofocus v-focus.lazy="true"
                v-model="newEstimationTitle" @keyup.enter="addEstimation(newEstimationTitle)">
         <button class="btn btn-primary"
                 @click="addEstimation(newEstimationTitle)"
@@ -27,11 +27,13 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import { focus } from 'vue-focus'
 
   export default {
     data: () => {
       return { newEstimationTitle: '' }
     },
+    directives: { focus },
     computed: {
       ...mapGetters({
         estimations: 'listEstimations',

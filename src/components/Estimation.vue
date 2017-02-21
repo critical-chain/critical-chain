@@ -15,7 +15,7 @@
 
     <div class="clearfix row">
       <div class="input-group float-right">
-        <input class="form-control input-lg" type="text" placeholder="New item title" autofocus
+        <input class="form-control input-lg" type="text" placeholder="New item title" autofocus v-focus.lazy="true"
                v-model="newEstimationItemTitle" @keyup.enter="addEstimationItem(newEstimationItemTitle)">
         <button class="btn btn-primary"
                 @click="addEstimationItem(newEstimationItemTitle)"
@@ -28,6 +28,7 @@
 
 <script>
 import EstimationItem from './EstimationItem.vue'
+import { focus } from 'vue-focus'
 
 export default {
   props: ['id'],
@@ -37,6 +38,7 @@ export default {
   components: {
     EstimationItem
   },
+  directives: { focus },
   computed: {
     estimation() {
       return this.$store.getters.getEstimation(this.id)
