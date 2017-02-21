@@ -1,18 +1,17 @@
 <template>
   <div>
     <router-link to="/">← Back</router-link>
-    <h1>{{estimation.title}}</h1>
 
     <div class="blankslate" v-if="estimation.items.length == 0">
+      <h1>{{estimation.title}}</h1>
       <h3>This is a blank slate</h3>
       <p>Use it to provide information when no dynamic content exists.</p>
     </div>
 
-    <table class="estimation-items" v-else>
-      <tbody>
-        <estimation-item :item="item" v-for="item in estimation.items"/>
-      </tbody>
-    </table>
+    <nav class="menu estimation-items" v-else>
+      <span class="menu-heading">{{estimation.title}}</span>
+      <estimation-item :item="item" v-for="item in estimation.items"/>
+    </nav>
 
     <div class="clearfix row">
       <div class="input-group float-right">
@@ -57,10 +56,3 @@ export default {
 }
 </script>
 
-<style>
-  table.estimation-items {
-    width: 100%;
-    margin-top: 2em;
-    background: lightcyan;
-  }
-</style>

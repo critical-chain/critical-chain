@@ -1,7 +1,5 @@
 <template>
-  <tr>
-    <td>{{item.title}}</td>
-  </tr>
+  <a class="menu-item">{{item.title}}</a>
 </template>
 
 <script>
