@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import EstimationItem from './EstimationItem.vue'
+import EstimationItem from './EstimationItem'
 import { focus } from 'vue-focus'
 
 export default {
@@ -40,15 +40,15 @@ export default {
   },
   directives: { focus },
   computed: {
-    estimation() {
+    estimation () {
       return this.$store.getters.getEstimation(this.id)
     },
-    addDisabled() {
-      return ((typeof this.newEstimationTitle !== 'string') || (this.newEstimationTitle.length == 0))
+    addDisabled () {
+      return ((typeof this.newEstimationTitle !== 'string') || (this.newEstimationTitle.length === 0))
     }
   },
   methods: {
-    addEstimationItem(title) {
+    addEstimationItem (title) {
       if ((typeof title === 'string') && (title.length > 0)) {
         this.$store.dispatch('ADD_ESTIMATION_ITEM', {estimationId: this.id, title})
         this.newEstimationItemTitle = ''

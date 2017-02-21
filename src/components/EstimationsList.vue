@@ -14,39 +14,41 @@
 
     <div class="clearfix row">
       <div class="input-group float-right">
-        <input class="form-control input-lg" type="text" placeholder="New estimation title" autofocus v-focus.lazy="true"
+        <input class="form-control input-lg" type="text" placeholder="New estimation title" autofocus
+               v-focus.lazy="true"
                v-model="newEstimationTitle" @keyup.enter="addEstimation(newEstimationTitle)">
         <button class="btn btn-primary"
                 @click="addEstimation(newEstimationTitle)"
                 :disabled="addDisabled"
-                title="Add estimation">⊕</button>
+                title="Add estimation">⊕
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import { focus } from 'vue-focus'
+  import {mapGetters} from 'vuex'
+  import {focus} from 'vue-focus'
 
   export default {
     data: () => {
-      return { newEstimationTitle: '' }
+      return {newEstimationTitle: ''}
     },
-    directives: { focus },
+    directives: {focus},
     computed: {
       ...mapGetters({
-        estimations: 'listEstimations',
+        estimations: 'listEstimations'
       }),
-      empty() {
-        return this.estimations.length == 0
+      empty () {
+        return this.estimations.length === 0
       },
-      addDisabled() {
-        return ((typeof this.newEstimationTitle !== 'string') || (this.newEstimationTitle.length == 0))
+      addDisabled () {
+        return ((typeof this.newEstimationTitle !== 'string') || (this.newEstimationTitle.length === 0))
       }
     },
     methods: {
-      addEstimation(title) {
+      addEstimation (title) {
         if ((typeof title === 'string') && (title.length > 0)) {
           this.$store.dispatch('ADD_ESTIMATION', {title})
           this.newEstimationTitle = ''
@@ -60,6 +62,7 @@
   .row {
     margin-top: 15px;
   }
+
   .btn-primary {
     font-size: 140% !important;
   }

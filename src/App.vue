@@ -18,7 +18,7 @@ export default {
     EstimationsList
   },
   computed: {
-    loaded() {
+    loaded () {
       return this.$store.state.loaded
     }
   }

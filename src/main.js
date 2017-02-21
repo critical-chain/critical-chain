@@ -17,7 +17,7 @@ const app = new Vue({
   store,
   router,
   methods: {
-    init() {
+    init () {
       this.$store.dispatch('LOAD_ESTIMATIONS')
     }
   }
