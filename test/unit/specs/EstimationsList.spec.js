@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import 'babel-polyfill'
 
 import EstimationsList from 'src/components/EstimationsList'
 import store from 'src/vuex/store'
