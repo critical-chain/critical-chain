@@ -6,7 +6,7 @@ import store from 'src/vuex/store'
 
 
 function render(estimations) {
-  store.state.estimations = estimations
+  store.commit('LOAD_ESTIMATIONS', estimations)
   const Component = Vue.extend({ ...EstimationsList, store })
   let rendered = new Component().$mount()
   return rendered.$el
