@@ -8,7 +8,12 @@ require(`quasar/dist/quasar.${__THEME}.css`)
 
 import Vue from 'vue'
 import Quasar from 'quasar'
+
+import store from './vuex/store'
 import router from './router'
+
+import { sync } from 'vuex-router-sync'
+sync(store, router)
 
 Vue.use(Quasar) // Install Quasar Framework
 
@@ -17,6 +22,12 @@ Quasar.start(() => {
   new Vue({
     el: '#q-app',
     router,
-    render: h => h(require('./App'))
-  })
+    store,
+    render: h => h(require('./App')),
+    methods: {
+      init () {
+        this.$store.dispatch('LOAD_ESTIMATIONS')
+      }
+    }
+  }).init()
 })

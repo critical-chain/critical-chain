@@ -1,8 +1,9 @@
 {
-  "name": "quasar-app",
-  "version": "0.0.1",
-  "description": "A Quasar App",
-  "author": "Your Name",
+  "name": "cc-ng",
+  "version": "1.0.0",
+  "description": "Critical chain calculator",
+  "author": "Kirill Pimenov <kirushik@gmail.com>",
+  "private": true,
   "scripts": {
     "clean": "node build/script.clean.js",
     "dev": "node build/script.dev.js",
@@ -16,8 +17,13 @@
     "moment": "^2.15.0",
     "quasar-framework": "^0.13.1",
     "roboto-fontface": "^0.7.0",
+    "pouchdb": "^6.1.1",
+    "uuid": "^3.0.1",
     "vue": "2.1.10",
-    "vue-router": "^2.0.0"
+    "vue-focus": "^2.1.0",
+    "vue-router": "^2.1.1",
+    "vuex": "^2.1.1",
+    "vuex-router-sync": "^4.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
