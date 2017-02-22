@@ -1,10 +1,8 @@
 <template>
-  <a class="menu-item">
-    <div class="flex-table">
-      <div class="flex-table-item flex-table-item-primary">{{item.title}}</div>
-      <div class="flex-table-item" @click="deleteItem">x</div>
-    </div>
-  </a>
+  <div class="item">
+    <div class="item-content">{{item.title}}</div>
+    <i class="item-secondary" @click="deleteItem">delete</i>
+  </div>
 </template>
 
 <script>

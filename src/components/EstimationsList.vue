@@ -1,30 +1,34 @@
 <template>
-  <div>
-    <div class="blankslate" v-if="empty">
-      <h3>This is a blank slate</h3>
-      <p>Use it to provide information when no dynamic content exists.</p>
-    </div>
+  <q-layout>
+    <div class="layout-view">
+      <div class="blankslate" v-if="empty">
+        <h3>This is a blank slate</h3>
+        <p>Use it to provide information when no dynamic content exists.</p>
+      </div>
 
-    <nav class="menu" v-else>
-      <router-link :to="{ name: 'estimation', params: {id: estimation.id}}"
-                   class="menu-item" v-for="estimation in estimations">
-        {{estimation.title}}
-      </router-link>
-    </nav>
+      <div class="list highlight item-delimiter" v-else>
+        <div class="item" v-for="estimation in estimations">
+          <router-link :to="{ name: 'estimation', params: {id: estimation.id}}" tag="div" class="item-content">
+            {{estimation.title}}
+          </router-link>
+        </div>
+      </div>
 
-    <div class="clearfix row">
-      <div class="input-group float-right">
-        <input class="form-control input-lg" type="text" placeholder="New estimation title" autofocus
-               v-focus.lazy="true"
-               v-model="newEstimationTitle" @keyup.enter="addEstimation(newEstimationTitle)">
-        <button class="btn btn-primary"
+      <div class="row justify-end">
+        <div class="stacked-label">
+          <input autofocus v-focus.lazy="true"
+                 v-model="newEstimationTitle" @keyup.enter="addEstimation(newEstimationTitle)">
+          <label>New estimation title</label>
+        </div>
+        <button class="primary small circular"
                 @click="addEstimation(newEstimationTitle)"
                 :disabled="addDisabled"
-                title="Add estimation">⊕
+                title="Add estimation">
+          <i>add</i>
         </button>
       </div>
     </div>
-  </div>
+  </q-layout>
 </template>
 
 <script>
@@ -58,12 +62,3 @@
   }
 </script>
 
-<style scoped>
-  .row {
-    margin-top: 15px;
-  }
-
-  .btn-primary {
-    font-size: 140% !important;
-  }
-</style>

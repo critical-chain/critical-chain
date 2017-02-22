@@ -1,29 +1,34 @@
 <template>
-  <div>
-    <router-link to="/">← Back</router-link>
-
-    <div class="blankslate" v-if="estimation.items.length == 0">
-      <h1>{{estimation.title}}</h1>
-      <h3>This is a blank slate</h3>
-      <p>Use it to provide information when no dynamic content exists.</p>
+  <q-layout>
+    <div slot="header" class="toolbar">
+      <router-link to="/" tag="button"><i>arrow_back</i></router-link>
+      <q-toolbar-title :padding="1">
+        {{estimation.title}}
+      </q-toolbar-title>
     </div>
 
-    <nav class="menu estimation-items" v-else>
-      <span class="menu-heading">{{estimation.title}}</span>
-      <estimation-item :item="item" v-for="item in estimation.items"/>
-    </nav>
-
-    <div class="clearfix row">
-      <div class="input-group float-right">
-        <input class="form-control input-lg" type="text" placeholder="New item title" autofocus v-focus.lazy="true"
-               v-model="newEstimationItemTitle" @keyup.enter="addEstimationItem(newEstimationItemTitle)">
-        <button class="btn btn-primary"
-                @click="addEstimationItem(newEstimationItemTitle)"
-                :disabled="addDisabled"
-                title="Add item">⊕</button>
+    <div class="layout-view">
+      <div class="blankslate" v-if="estimation.items.length == 0">
+        <h3>This is a blank slate</h3>
+        <p>Use it to provide information when no dynamic content exists.</p>
       </div>
+
+      <div v-else>
+        <div class="list highlight estimation-items">
+          <estimation-item :item="item" v-for="item in estimation.items"/>
+        </div>
+      </div>
+
+        <div class="input-group float-right">
+          <input class="form-control input-lg" type="text" placeholder="New item title" autofocus v-focus.lazy="true"
+                 v-model="newEstimationItemTitle" @keyup.enter="addEstimationItem(newEstimationItemTitle)">
+          <button class="btn btn-primary"
+                  @click="addEstimationItem(newEstimationItemTitle)"
+                  :disabled="addDisabled"
+                  title="Add item">⊕</button>
+        </div>
     </div>
-  </div>
+  </q-layout>
 </template>
 
 <script>
