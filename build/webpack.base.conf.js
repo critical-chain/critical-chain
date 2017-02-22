@@ -1,7 +1,15 @@
-var path = require('path')
-var utils = require('./utils')
-var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
+var
+  path = require('path'),
+  webpack = require('webpack'),
+  config = require('../config'),
+  cssUtils = require('./css-utils'),
+  env = require('./env-utils'),
+  merge = require('webpack-merge'),
+  projectRoot = path.resolve(__dirname, '../'),
+  ProgressBarPlugin = require('progress-bar-webpack-plugin'),
+  useCssSourceMap =
+    (env.dev && config.dev.cssSourceMap) ||
+    (env.prod && config.build.productionSourceMap)
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -12,11 +20,10 @@ module.exports = {
     app: './src/main.js'
   },
   output: {
-    path: config.build.assetsRoot,
-    filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: config[env.prod ? 'build' : 'dev'].publicPath,
+    filename: 'js/[name].js',
+    chunkFilename: 'js/[id].[chunkhash].js'
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -24,50 +31,81 @@ module.exports = {
       resolve('src'),
       resolve('node_modules')
     ],
-    alias: {
-      'vue$': 'vue/dist/vue.common.js',
-      'src': resolve('src'),
-      'assets': resolve('src/assets'),
-      'components': resolve('src/components')
-    }
+    alias: config.aliases
   },
   module: {
     rules: [
-      {
-        test: /\.(js|vue)$/,
+      { // eslint
+        enforce: 'pre',
+        test: /\.(vue|js)$/,
         loader: 'eslint-loader',
-        enforce: "pre",
-        include: [resolve('src'), resolve('test')],
+        include: projectRoot,
+        exclude: /node_modules/,
         options: {
           formatter: require('eslint-friendly-formatter')
         }
       },
       {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: vueLoaderConfig
-      },
-      {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: projectRoot,
+        exclude: /node_modules/
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          postcss: cssUtils.postcss,
+          loaders: merge({js: 'babel-loader'}, cssUtils.styleLoaders({
+            sourceMap: useCssSourceMap,
+            extract: env.prod
+          }))
+        }
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
-        query: {
+        options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+          name: 'img/[name].[hash:7].[ext]'
         }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
-        query: {
+        options: {
           limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+          name: 'fonts/[name].[hash:7].[ext]'
         }
       }
     ]
+  },
+  plugins: [
+    /* Uncomment if you wish to load only one Moment locale: */
+    // new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+
+    new webpack.DefinePlugin({
+      'process.env': config[env.prod ? 'build' : 'dev'].env,
+      'DEV': env.dev,
+      'PROD': env.prod,
+      '__THEME': '"' + env.platform.theme + '"'
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: env.prod,
+      options: {
+        context: path.resolve(__dirname, '../src'),
+        postcss: cssUtils.postcss
+      }
+    }),
+    new ProgressBarPlugin({
+      format: config.progressFormat
+    })
+  ],
+  performance: {
+    hints: false
   }
 }
