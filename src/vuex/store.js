@@ -19,6 +19,10 @@ const mutations = {
   ADD_ESTIMATION (state, estimation) {
     state.estimations.push(estimation)
   },
+  DELETE_ESTIMATION (state, estimation) {
+    let index = state.estimations.indexOf(estimation)
+    state.estimations.splice(index, 1)
+  },
   LOAD_ESTIMATIONS (state, estimations) {
     state.estimations = estimations
   },
@@ -29,6 +33,11 @@ const mutations = {
   },
   ADD_ESTIMATION_ITEM (state, item) {
     state.estimations.find(e => e.id === item.estimationId).items.push(item)
+  },
+  DELETE_ESTIMATION_ITEM (state, item) {
+    let items = state.estimations.find(e => e.id === item.estimationId).items
+    let index = items.indexOf(item)
+    items.splice(index, 1)
   }
 }
 

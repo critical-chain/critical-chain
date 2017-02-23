@@ -8,25 +8,32 @@
     </div>
 
     <div class="layout-view">
-      <div class="blankslate" v-if="estimation.items.length == 0">
-        <h3>This is a blank slate</h3>
-        <p>Use it to provide information when no dynamic content exists.</p>
-      </div>
+      <div class="layout-padding">
+        <div class="blankslate" v-if="estimation.items.length == 0">
+          <h3>This is a blank slate</h3>
+          <p>Use it to provide information when no dynamic content exists.</p>
+        </div>
 
-      <div v-else>
-        <div class="list highlight estimation-items">
-          <estimation-item :item="item" v-for="item in estimation.items"/>
+        <div v-else>
+          <div class="list highlight estimation-items">
+            <estimation-item :item="item" v-for="item in estimation.items"/>
+          </div>
+        </div>
+
+        <div class="layout-padding">
+          <div class="row no-wrap">
+            <input class="form-control input-lg" type="text" placeholder="New item title"
+                   autofocus v-focus.lazy="true"
+                   v-model="newEstimationItemTitle"
+                   @keyup.enter="addEstimationItem(newEstimationItemTitle)">
+            <button class="circular primary"
+                    @click="addEstimationItem(newEstimationItemTitle)"
+                    :disabled="addDisabled"
+                    title="Add item"><i>add</i>
+            </button>
+          </div>
         </div>
       </div>
-
-        <div class="input-group float-right">
-          <input class="form-control input-lg" type="text" placeholder="New item title" autofocus v-focus.lazy="true"
-                 v-model="newEstimationItemTitle" @keyup.enter="addEstimationItem(newEstimationItemTitle)">
-          <button class="btn btn-primary"
-                  @click="addEstimationItem(newEstimationItemTitle)"
-                  :disabled="addDisabled"
-                  title="Add item">⊕</button>
-        </div>
     </div>
   </q-layout>
 </template>

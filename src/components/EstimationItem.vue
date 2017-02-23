@@ -10,7 +10,7 @@
     props: ['item'],
     methods: {
       deleteItem () {
-        console.log(this.item)
+        this.$store.dispatch('DELETE_ESTIMATION_ITEM', this.item)
       }
     }
   }

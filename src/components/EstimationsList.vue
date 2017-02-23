@@ -21,6 +21,7 @@
                   <router-link :to="{ name: 'estimation', params: {id: estimation.id}}" tag="div" class="item-content">
                     {{estimation.title}}
                   </router-link>
+                  <i class="item-secondary" @click="deleteEstimation(estimation)">delete</i>
                 </div>
               </div>
             </div>
@@ -76,6 +77,9 @@
           this.$store.dispatch('ADD_ESTIMATION', {title})
           this.newEstimationTitle = ''
         }
+      },
+      deleteEstimation (estimation) {
+        this.$store.dispatch('DELETE_ESTIMATION', estimation)
       }
     }
   }
