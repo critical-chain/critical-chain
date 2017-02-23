@@ -56,7 +56,7 @@ export default {
       return this.$store.getters.getEstimation(this.id)
     },
     addDisabled () {
-      return ((typeof this.newEstimationTitle !== 'string') || (this.newEstimationTitle.length === 0))
+      return ((typeof this.newEstimationItemTitle !== 'string') || (this.newEstimationItemTitle.length === 0))
     }
   },
   methods: {
