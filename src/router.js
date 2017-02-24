@@ -7,7 +7,7 @@ function load (component) {
   return () => System.import(`components/${component}.vue`)
 }
 
-export default new VueRouter({
+const router = new VueRouter({
   /*
    * NOTE! VueRouter "history" mode DOESN'T works for Cordova builds,
    * it is only to be used only for websites.
@@ -25,3 +25,5 @@ export default new VueRouter({
     { path: '/estimation/:id', name: 'estimation', component: load('Estimation'), props: true } // Not found
   ]
 })
+
+export default router

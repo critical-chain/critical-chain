@@ -16,12 +16,12 @@ const getters = {
 }
 
 const mutations = {
-  ADD_ESTIMATION (state, estimation) {
-    state.estimations.push(estimation)
+  ADD_ESTIMATION ({estimations}, estimation) {
+    estimations.push(estimation)
   },
-  DELETE_ESTIMATION (state, estimation) {
-    let index = state.estimations.indexOf(estimation)
-    state.estimations.splice(index, 1)
+  DELETE_ESTIMATION ({estimations}, estimation) {
+    let index = estimations.indexOf(estimation)
+    estimations.splice(index, 1)
   },
   LOAD_ESTIMATIONS (state, estimations) {
     state.estimations = estimations
@@ -31,13 +31,27 @@ const mutations = {
   },
   ALREADY_LOADED () {
   },
-  ADD_ESTIMATION_ITEM (state, item) {
-    state.estimations.find(e => e.id === item.estimationId).items.push(item)
+  ADD_ESTIMATION_ITEM ({estimations}, item) {
+    estimations.find(e => e.id === item.estimationId).items.push(item)
   },
-  DELETE_ESTIMATION_ITEM (state, item) {
-    let items = state.estimations.find(e => e.id === item.estimationId).items
+  DELETE_ESTIMATION_ITEM ({estimations}, item) {
+    let items = estimations.find(e => e.id === item.estimationId).items
     let index = items.indexOf(item)
     items.splice(index, 1)
+  },
+  START_ITEM_EDITING (_, item) {
+    item.isEditing = true
+  },
+  CANCEL_ITEM_EDITING (_, item) {
+    item.isEditing = false
+  },
+  UPDATE_ESTIMATION_ITEM (_, {item, newData}) {
+    for (var key in newData) {
+      if (newData.hasOwnProperty(key)) {
+        item[key] = newData[key]
+      }
+    }
+    item.isEditing = false
   }
 }
 

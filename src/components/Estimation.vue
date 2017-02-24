@@ -22,14 +22,17 @@
 
         <div class="layout-padding">
           <div class="row no-wrap">
-            <input class="form-control input-lg" type="text" placeholder="New item title"
-                   autofocus v-focus.lazy="true"
-                   v-model="newEstimationItemTitle"
-                   @keyup.enter="addEstimationItem(newEstimationItemTitle)">
+            <div class="stacked-label" style="max-width: 12em;">
+              <input autofocus v-focus.lazy="true"
+                     v-model="newEstimationItemTitle"
+                     @keyup.enter="addEstimationItem(newEstimationItemTitle)">
+              <label>New item title</label>
+            </div>
             <button class="circular primary"
                     @click="addEstimationItem(newEstimationItemTitle)"
                     :disabled="addDisabled"
-                    title="Add item"><i>add</i>
+                    title="Add item">
+              <i>add</i>
             </button>
           </div>
         </div>
@@ -69,4 +72,3 @@ export default {
   }
 }
 </script>
-

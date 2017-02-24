@@ -25,6 +25,7 @@ export default {
         db.allDocs({include_docs: true, startkey: 'estimationItem:', endkey: 'estimationItem:\uffff'}).then(results => {
           results.rows.forEach(({doc}) => {
             let estimation = estimations.find(e => e.id === doc.estimationId)
+            doc.isEditing = false
             if (estimation) { estimation.items.push(doc) }
           })
           commit('LOAD_ESTIMATIONS', estimations)
@@ -49,5 +50,23 @@ export default {
   DELETE_ESTIMATION_ITEM ({commit}, item) {
     db.get(item._id).then(doc => db.remove(doc))
     commit('DELETE_ESTIMATION_ITEM', item)
+  },
+  START_ITEM_EDITING ({commit}, item) {
+    commit('START_ITEM_EDITING', item)
+  },
+  CANCEL_ITEM_EDITING ({commit}, item) {
+    commit('CANCEL_ITEM_EDITING', item)
+  },
+  UPDATE_ESTIMATION_ITEM ({commit}, {item, newData}) {
+    let itemId = 'estimationItem:' + item.estimationId + ':' + item.id
+    db.get(itemId).then(function (doc) {
+      for (var key in newData) {
+        if (newData.hasOwnProperty(key)) {
+          doc[key] = newData[key]
+        }
+      }
+      db.put(doc)
+    })
+    commit('UPDATE_ESTIMATION_ITEM', {item, newData})
   }
 }
