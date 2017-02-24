@@ -9,7 +9,7 @@
 
     <div class="layout-view">
       <div class="layout-padding">
-        <div class="blankslate" v-if="estimation.items.length == 0">
+        <div class="blankslate" v-if="estimation.items && estimation.items.length == 0">
           <h3>This is a blank slate</h3>
           <p>Use it to provide information when no dynamic content exists.</p>
         </div>
@@ -43,6 +43,7 @@
 
 <script>
 import EstimationItem from './EstimationItem'
+import router from '../router'
 import { focus } from 'vue-focus'
 
 export default {
@@ -62,6 +63,12 @@ export default {
       return ((typeof this.newEstimationItemTitle !== 'string') || (this.newEstimationItemTitle.length === 0))
     }
   },
+  beforeMount () {
+    if (!this.$store.getters.hasEstimation(this.id)) {
+      router.replace('/')
+    }
+  },
+
   methods: {
     addEstimationItem (title) {
       if ((typeof title === 'string') && (title.length > 0)) {
