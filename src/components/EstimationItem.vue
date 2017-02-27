@@ -1,19 +1,21 @@
 <template>
-  <div class="item two-lines" @click="startEditing" v-if="!item.isEditing">
+  <div class="item" @click="startEditing" v-if="!item.isEditing">
     <div class="item-content has-secondary">{{item.title}}</div>
     <div class="item-secondary stamp">{{item.value}}</div>
-    <!--<i class="item-secondary" @click="deleteItem">delete</i>-->
   </div>
   <div class="item" v-else>
     <i class="item-primary">edit</i>
-    <div class="item-content row no-wrap">
+    <div class="item-content row no-wrap gutter">
       <input class="full-width" v-model="edit.title"
              @keyup.enter="finishEditing" @keyup.esc="cancelEditing"
              @blur="conditionalCancel">
-      <input type="number" class="item-secondary" v-model.number="edit.value"
+      <input type="number" class="item-secondary value-input" v-model.number="edit.value"
              @keyup.enter="finishEditing" @keyup.esc="cancelEditing"
              v-focus.lazy="true"
              @blur="conditionalCancel">
+      <button class="primary small item-secondary" @click="deleteItem">
+        <i>delete</i>
+      </button>
     </div>
   </div>
 </template>
@@ -51,3 +53,11 @@
     }
   }
 </script>
+
+<style>
+  .value-input {
+    max-width: 4em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+</style>

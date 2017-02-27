@@ -1,5 +1,5 @@
 import PouchDB from 'pouchdb'
-import { Utils } from 'quasar'
+import { Toast, Utils } from 'quasar'
 
 const db = new PouchDB('estimations')
 window.PouchDB = PouchDB // TODO remove in production
@@ -49,8 +49,19 @@ export default {
     commit('START_ITEM_EDITING', estimationItem)
   },
   DELETE_ESTIMATION_ITEM ({commit}, item) {
-    db.get(item._id).then(doc => db.remove(doc))
+    db.get(item._id).then(doc => db.remove(doc)).then(({rev}) => { item._rev = rev })
     commit('DELETE_ESTIMATION_ITEM', item)
+    Toast.create({
+      html: `"<strong>${item.title}</strong>" has been deleted.`,
+      icon: 'delete',
+      button: {
+        label: 'Undo',
+        handler () {
+          db.put(item)
+          commit('UNDO_ITEM_DELETION', item)
+        }
+      }
+    })
   },
   START_ITEM_EDITING ({commit}, item) {
     commit('START_ITEM_EDITING', item)

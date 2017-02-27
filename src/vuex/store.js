@@ -36,9 +36,14 @@ const mutations = {
     estimations.find(e => e.id === item.estimationId).items.push(item)
   },
   DELETE_ESTIMATION_ITEM ({estimations}, item) {
+    item.isEditing = false
     let items = estimations.find(e => e.id === item.estimationId).items
     let index = items.indexOf(item)
     items.splice(index, 1)
+  },
+  UNDO_ITEM_DELETION ({estimations}, item) {
+    let items = estimations.find(e => e.id === item.estimationId).items
+    items.push(item)
   },
   START_ITEM_EDITING (_, item) {
     Vue.set(item, 'isEditing', true)
