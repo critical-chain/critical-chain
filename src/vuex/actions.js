@@ -1,5 +1,5 @@
 import PouchDB from 'pouchdb'
-import uuid from 'uuid'
+import { Utils } from 'quasar'
 
 const db = new PouchDB('estimations')
 window.PouchDB = PouchDB // TODO remove in production
@@ -8,7 +8,7 @@ import router from '../router'
 
 export default {
   ADD_ESTIMATION ({commit}, {title}) {
-    let estimationId = uuid.v4()
+    let estimationId = Utils.uid()
     let estimation = {_id: 'estimation:' + estimationId, id: estimationId, title, items: []}
     db.put(estimation)
     commit('ADD_ESTIMATION', estimation)
@@ -37,7 +37,7 @@ export default {
     })
   },
   ADD_ESTIMATION_ITEM ({commit}, {estimationId, title}) {
-    let estimationItemId = uuid.v4()
+    let estimationItemId = Utils.uid()
     let estimationItem = {
       _id: 'estimationItem:' + estimationId + ':' + estimationItemId,
       estimationId,
@@ -46,6 +46,7 @@ export default {
     }
     db.put(estimationItem)
     commit('ADD_ESTIMATION_ITEM', estimationItem)
+    commit('START_ITEM_EDITING', estimationItem)
   },
   DELETE_ESTIMATION_ITEM ({commit}, item) {
     db.get(item._id).then(doc => db.remove(doc))
@@ -60,7 +61,7 @@ export default {
   UPDATE_ESTIMATION_ITEM ({commit}, {item, newData}) {
     let itemId = 'estimationItem:' + item.estimationId + ':' + item.id
     db.get(itemId).then(function (doc) {
-      for (var key in newData) {
+      for (let key in newData) {
         if (newData.hasOwnProperty(key)) {
           doc[key] = newData[key]
         }
@@ -68,5 +69,6 @@ export default {
       db.put(doc)
     })
     commit('UPDATE_ESTIMATION_ITEM', {item, newData})
+    commit('CANCEL_ITEM_EDITING', item)
   }
 }

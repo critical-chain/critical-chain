@@ -52,7 +52,6 @@ const mutations = {
         item[key] = newData[key]
       }
     }
-    item.isEditing = false
   }
 }
 
