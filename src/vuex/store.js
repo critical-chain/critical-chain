@@ -13,6 +13,11 @@ const getters = {
   getEstimation: state => (uuid) => {
     return state.estimations.find(e => e.id === uuid) || {}
   },
+  getEditedItem: state => (uuid) => {
+    let estimation = state.estimations.find(e => e.id === uuid)
+    if (!estimation) { return null }
+    estimation.items.find(item => item.isEditing)
+  },
   hasEstimation: state => (uuid) => !!state.estimations.find(e => e.id === uuid)
 }
 

@@ -11,6 +11,7 @@
              @blur="conditionalCancel">
       <input type="number" class="item-secondary value-input" v-model.number="edit.value"
              @keyup.enter="finishEditing" @keyup.esc="cancelEditing"
+             @focus="selectAllInValue"
              v-focus.lazy="true"
              @blur="conditionalCancel">
       <button class="primary small item-secondary" @click="deleteItem">
@@ -49,6 +50,9 @@
             this.$store.dispatch('STOP_ITEM_EDITING', this.item)
           }
         }, 100)
+      },
+      selectAllInValue () {
+        this.$el.getElementsByClassName('value-input')[0].select()
       }
     }
   }

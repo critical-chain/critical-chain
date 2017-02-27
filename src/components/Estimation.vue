@@ -23,7 +23,7 @@
         <div class="layout-padding">
           <div class="row no-wrap">
             <div class="stacked-label" style="max-width: 12em;">
-              <input autofocus v-focus.lazy="true"
+              <input autofocus v-focus.lazy="true" v-focus="nothingIsEdited"
                      v-model="newEstimationItemTitle"
                      @keyup.enter="addEstimationItem(newEstimationItemTitle)">
               <label>New item title</label>
@@ -61,6 +61,9 @@ export default {
     },
     addDisabled () {
       return ((typeof this.newEstimationItemTitle !== 'string') || (this.newEstimationItemTitle.length === 0))
+    },
+    nothingIsEdited () {
+      return !this.$store.getters.getEditedItem(this.id)
     }
   },
   beforeMount () {
