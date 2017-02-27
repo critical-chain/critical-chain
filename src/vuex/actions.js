@@ -44,7 +44,7 @@ export default {
       id: estimationItemId,
       title
     }
-    db.put(estimationItem)
+    db.put(estimationItem).then(({rev}) => { estimationItem._rev = rev })
     commit('ADD_ESTIMATION_ITEM', estimationItem)
     commit('START_ITEM_EDITING', estimationItem)
   },
@@ -55,8 +55,8 @@ export default {
   START_ITEM_EDITING ({commit}, item) {
     commit('START_ITEM_EDITING', item)
   },
-  CANCEL_ITEM_EDITING ({commit}, item) {
-    commit('CANCEL_ITEM_EDITING', item)
+  STOP_ITEM_EDITING ({commit}, item) {
+    commit('STOP_ITEM_EDITING', item)
   },
   UPDATE_ESTIMATION_ITEM ({commit}, {item, newData}) {
     let itemId = 'estimationItem:' + item.estimationId + ':' + item.id
@@ -69,6 +69,6 @@ export default {
       db.put(doc)
     })
     commit('UPDATE_ESTIMATION_ITEM', {item, newData})
-    commit('CANCEL_ITEM_EDITING', item)
+    commit('STOP_ITEM_EDITING', item)
   }
 }

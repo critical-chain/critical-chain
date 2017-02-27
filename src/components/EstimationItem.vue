@@ -1,22 +1,32 @@
 <template>
-  <div class="item" @click="startEditing" v-if="!item.isEditing">
-    <div class="item-content">{{item.title}}</div>
-    <i class="item-secondary" @click="deleteItem">delete</i>
+  <div class="item two-lines" @click="startEditing" v-if="!item.isEditing">
+    <div class="item-content has-secondary">{{item.title}}</div>
+    <div class="item-secondary stamp">{{item.value}}</div>
+    <!--<i class="item-secondary" @click="deleteItem">delete</i>-->
   </div>
   <div class="item" v-else>
     <i class="item-primary">edit</i>
-    <div class="item-content">
-      <input class="full-width" v-model="edit.title" @keyup.enter="finishEditing" @keyup.esc="cancelEditing">
+    <div class="item-content row no-wrap">
+      <input class="full-width" v-model="edit.title"
+             @keyup.enter="finishEditing" @keyup.esc="cancelEditing"
+             @blur="conditionalCancel">
+      <input type="number" class="item-secondary" v-model.number="edit.value"
+             @keyup.enter="finishEditing" @keyup.esc="cancelEditing"
+             v-focus.lazy="true"
+             @blur="conditionalCancel">
     </div>
   </div>
 </template>
 
 <script>
+  import { focus } from 'vue-focus'
+
   export default {
     props: ['item'],
     data () {
-      return { edit: { title: this.item.title } }
+      return { edit: { title: this.item.title || '', value: this.item.value || 0 } }
     },
+    directives: { focus },
     methods: {
       deleteItem () {
         this.$store.dispatch('DELETE_ESTIMATION_ITEM', this.item)
@@ -25,10 +35,18 @@
         this.$store.dispatch('START_ITEM_EDITING', this.item)
       },
       finishEditing () {
-        this.$store.dispatch('UPDATE_ESTIMATION_ITEM', { item: this.item, newData: { title: this.edit.title } })
+        this.$store.dispatch('UPDATE_ESTIMATION_ITEM',
+          { item: this.item, newData: { title: this.edit.title, value: this.edit.value } })
       },
       cancelEditing () {
-        this.$store.dispatch('CANCEL_ITEM_EDITING', this.item)
+        this.$store.dispatch('STOP_ITEM_EDITING', this.item)
+      },
+      conditionalCancel () {
+        setTimeout(() => {
+          if (!this.$el.contains(document.activeElement)) {
+            this.$store.dispatch('STOP_ITEM_EDITING', this.item)
+          }
+        }, 100)
       }
     }
   }

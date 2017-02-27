@@ -41,15 +41,15 @@ const mutations = {
     items.splice(index, 1)
   },
   START_ITEM_EDITING (_, item) {
-    item.isEditing = true
+    Vue.set(item, 'isEditing', true)
   },
-  CANCEL_ITEM_EDITING (_, item) {
-    item.isEditing = false
+  STOP_ITEM_EDITING (_, item) {
+    Vue.set(item, 'isEditing', false)
   },
   UPDATE_ESTIMATION_ITEM (_, {item, newData}) {
     for (var key in newData) {
       if (newData.hasOwnProperty(key)) {
-        item[key] = newData[key]
+        Vue.set(item, key, newData[key])
       }
     }
   }
