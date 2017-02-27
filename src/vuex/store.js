@@ -9,16 +9,18 @@ const state = {
 }
 
 const getters = {
-  listEstimations: state => state.estimations,
-  getEstimation: state => (uuid) => {
-    return state.estimations.find(e => e.id === uuid) || {}
+  listEstimations: ({estimations}) => estimations,
+  getEstimation: ({estimations}) => (uuid) => (estimations.find(e => e.id === uuid) || {items: []}),
+  getEstimationItems: (_, {getEstimation}) => (uuid) => getEstimation(uuid).items,
+  getNextPosition: (_, {getEstimationItems}) => (uuid) => {
+    let items = getEstimationItems(uuid)
+    if (items.length > 0) {
+      return Math.max(...items.map(i => (i.position || 0))) + 1
+    } else {
+      return 0
+    }
   },
-  getEditedItem: state => (uuid) => {
-    let estimation = state.estimations.find(e => e.id === uuid)
-    if (!estimation) { return null }
-    estimation.items.find(item => item.isEditing)
-  },
-  hasEstimation: state => (uuid) => !!state.estimations.find(e => e.id === uuid)
+  getEditedItem: (_, {getEstimation}) => (uuid) => getEstimation(uuid).items.find(item => item.isEditing)
 }
 
 const mutations = {
@@ -37,8 +39,8 @@ const mutations = {
   },
   ALREADY_LOADED () {
   },
-  ADD_ESTIMATION_ITEM ({estimations}, item) {
-    estimations.find(e => e.id === item.estimationId).items.push(item)
+  ADD_ESTIMATION_ITEM (_, {estimation, item}) {
+    estimation.items.push(item)
   },
   DELETE_ESTIMATION_ITEM ({estimations}, item) {
     item.isEditing = false

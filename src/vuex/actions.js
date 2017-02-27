@@ -36,17 +36,20 @@ export default {
       }
     })
   },
-  ADD_ESTIMATION_ITEM ({commit}, {estimationId, title}) {
+  ADD_ESTIMATION_ITEM ({commit, state, getters}, {estimationId, title}) {
+    let estimation = state.estimations.find(e => e.id === estimationId)
+    let position = getters.getNextPosition(estimationId)
     let estimationItemId = Utils.uid()
-    let estimationItem = {
+    let item = {
       _id: 'estimationItem:' + estimationId + ':' + estimationItemId,
       estimationId,
       id: estimationItemId,
+      position,
       title
     }
-    db.put(estimationItem).then(({rev}) => { estimationItem._rev = rev })
-    commit('ADD_ESTIMATION_ITEM', estimationItem)
-    commit('START_ITEM_EDITING', estimationItem)
+    db.put(item).then(({rev}) => { item._rev = rev })
+    commit('ADD_ESTIMATION_ITEM', {estimation, item})
+    commit('START_ITEM_EDITING', item)
   },
   DELETE_ESTIMATION_ITEM ({commit}, item) {
     db.get(item._id).then(doc => db.remove(doc)).then(({rev}) => { item._rev = rev })

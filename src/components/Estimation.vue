@@ -16,7 +16,7 @@
 
         <div v-else>
           <div class="list highlight estimation-items">
-            <estimation-item :item="item" v-for="item in estimation.items"/>
+            <estimation-item :item="item" v-for="item in items"/>
           </div>
         </div>
 
@@ -59,6 +59,9 @@ export default {
     estimation () {
       return this.$store.getters.getEstimation(this.id)
     },
+    items () {
+      return this.$store.getters.getEstimationItems(this.id).slice(0).sort((a, b) => a.position - b.position)
+    },
     addDisabled () {
       return ((typeof this.newEstimationItemTitle !== 'string') || (this.newEstimationItemTitle.length === 0))
     },
@@ -67,7 +70,7 @@ export default {
     }
   },
   beforeMount () {
-    if (!this.$store.getters.hasEstimation(this.id)) {
+    if (!this.$store.getters.getEstimation(this.id)._id) {
       router.replace('/')
     }
   },
