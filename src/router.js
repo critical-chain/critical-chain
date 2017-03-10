@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import store from './vuex/store'
+
 Vue.use(VueRouter)
 
 function load (component) {
@@ -22,8 +24,26 @@ const router = new VueRouter({
 
   routes: [
     { path: '/', component: load('EstimationsList') }, // Default
-    { path: '/estimation/:id', name: 'estimation', component: load('Estimation'), props: true } // Not found
+    { path: '/estimation/:id', name: 'estimation', component: load('Estimation'), props: true }
   ]
 })
+
+function estimationDoesntExistGuard (to, _from, next) {
+  if (store.state.loaded) {
+    if (to.name === 'estimation' && !store.getters.getEstimation(to.params.id)._id) {
+      router.replace('/')
+    }
+  } else {
+    let unwatch = store.watch(({loaded}) => loaded, () => {
+      if (to.name === 'estimation' && !store.getters.getEstimation(to.params.id)._id) {
+        router.replace('/')
+      }
+      unwatch()
+    })
+  }
+  next()
+}
+
+router.beforeEach(estimationDoesntExistGuard)
 
 export default router

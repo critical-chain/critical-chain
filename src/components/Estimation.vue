@@ -43,7 +43,6 @@
 
 <script>
 import EstimationItem from './EstimationItem'
-import router from '../router'
 import { focus } from 'vue-focus'
 
 export default {
@@ -67,11 +66,6 @@ export default {
     },
     nothingIsEdited () {
       return !this.$store.getters.getEditedItem(this.id)
-    }
-  },
-  beforeMount () {
-    if (!this.$store.getters.getEstimation(this.id)._id) {
-      router.replace('/')
     }
   },
 
