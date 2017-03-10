@@ -15,9 +15,9 @@ const getters = {
   getNextPosition: (_, {getEstimationItems}) => (uuid) => {
     let items = getEstimationItems(uuid)
     if (items.length > 0) {
-      return Math.max(...items.map(i => (i.position || 0))) + 1
+      return Math.max(...items.map(i => (i.position || 0))) + Math.random()
     } else {
-      return 0
+      return Math.random()
     }
   },
   getEditedItem: (_, {getEstimation}) => (uuid) => getEstimation(uuid).items.find(item => item.isEditing)
