@@ -17,9 +17,11 @@
               </div>
 
               <div class="list highlight item-delimiter" v-else>
-                <div class="item" v-for="estimation in estimations">
+                <div class="item two-lines" v-for="estimation in estimations">
                   <router-link :to="{ name: 'estimation', params: {id: estimation.id}}" tag="div" class="item-content">
-                    {{estimation.title}}
+                    <div>{{estimation.title}}</div>
+                    <estimation-values :estimation="estimation"/>
+
                   </router-link>
                   <i class="item-secondary" @click="deleteEstimation(estimation)">delete</i>
                 </div>
@@ -55,10 +57,13 @@
   import {mapGetters} from 'vuex'
   import {focus} from 'vue-focus'
 
+  import EstimationValues from './EstimationValues'
+
   export default {
     data: () => {
       return {newEstimationTitle: ''}
     },
+    components: { EstimationValues },
     directives: {focus},
     computed: {
       ...mapGetters({
