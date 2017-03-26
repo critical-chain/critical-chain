@@ -15,6 +15,7 @@
         </div>
 
         <div v-else>
+          <estimation-values :estimation="estimation"></estimation-values>
           <div class="list highlight estimation-items">
             <estimation-item :item="item" v-for="item in items"/>
           </div>
@@ -43,6 +44,7 @@
 
 <script>
 import EstimationItem from './EstimationItem'
+import EstimationValues from './EstimationValues'
 import { focus } from 'vue-focus'
 
 export default {
@@ -51,7 +53,8 @@ export default {
     return { newEstimationItemTitle: '' }
   },
   components: {
-    EstimationItem
+    EstimationItem,
+    EstimationValues
   },
   directives: { focus },
   computed: {
