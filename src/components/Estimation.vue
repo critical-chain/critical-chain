@@ -15,7 +15,9 @@
         </div>
 
         <div v-else>
-          <estimation-values :estimation="estimation"></estimation-values>
+          <h5>
+            <estimation-values :estimation="estimation"></estimation-values>
+          </h5>
           <div class="list highlight estimation-items">
             <estimation-item :item="item" v-for="item in items"/>
           </div>

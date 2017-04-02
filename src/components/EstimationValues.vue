@@ -1,10 +1,10 @@
 <template>
   <div class="estimation-values">
-    <span class="precise">{{precise | trim}}</span>
+    <span class="precise text-secondary">{{precise | trim}}</span>
     +
-    <span class="buffer">{{buffer | trim}}</span>
+    <span class="buffer text-tertiary">{{buffer | trim}}</span>
     =
-    <span class="sum">{{sum | trim}}</span>
+    <span class="sum text-primary text-bold">{{sum | trim}}</span>
   </div>
 </template>
 
@@ -31,3 +31,4 @@
     }
   }
 </script>
+
