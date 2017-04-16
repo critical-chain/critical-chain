@@ -1,12 +1,15 @@
 <template>
   <div class="item" @click="startEditing" v-if="!item.isEditing">
     <div class="item-content has-secondary">{{item.title}}</div>
-    <div class="item-secondary stamp">{{item.value}}</div>
+    <div class="item-secondary stamp value-stamp">{{valueStamp}}</div>
   </div>
   <div class="item" v-else>
     <i class="item-primary">edit</i>
     <div class="item-content row no-wrap gutter">
       <input class="full-width" v-model="edit.title"
+             @keyup.enter="finishEditing" @keyup.esc="cancelEditing"
+             @blur="conditionalCancel">
+      <input type="number" min="1" class="item-secondary quantity-input" v-model.number="edit.quantity"
              @keyup.enter="finishEditing" @keyup.esc="cancelEditing"
              @blur="conditionalCancel">
       <input type="number" class="item-secondary value-input" v-model.number="edit.value"
@@ -27,9 +30,22 @@
   export default {
     props: ['item'],
     data () {
-      return { edit: { title: this.item.title || '', value: this.item.value || 0 } }
+      return { edit: { title: this.item.title || '', value: this.item.value || 0, quantity: this.item.quantity || 1 } }
     },
     directives: { focus },
+    computed: {
+      valueStamp () { // TODO: Make this a separate directive, with proper visual dimming
+        let paddedValue = this.item.value
+        if (Number.isInteger(paddedValue)) {
+          paddedValue = paddedValue + '   '
+        }
+        if (!this.item.quantity || this.item.quantity === 1) {
+          return '' + paddedValue
+        } else {
+          return this.item.quantity + '×' + paddedValue
+        }
+      }
+    },
     methods: {
       deleteItem () {
         this.$store.dispatch('DELETE_ESTIMATION_ITEM', this.item)
@@ -39,7 +55,7 @@
       },
       finishEditing () {
         this.$store.dispatch('UPDATE_ESTIMATION_ITEM',
-          { item: this.item, newData: { title: this.edit.title, value: this.edit.value } })
+          { item: this.item, newData: { title: this.edit.title, value: this.edit.value, quantity: this.edit.quantity } })
       },
       cancelEditing () {
         this.$store.dispatch('STOP_ITEM_EDITING', this.item)
@@ -63,5 +79,10 @@
     max-width: 4em;
     margin-left: 0.5em;
     margin-right: 0.5em;
+  }
+  .value-stamp {
+    font-family: monospace;
+    color: black;
+    width: 8em !important;
   }
 </style>

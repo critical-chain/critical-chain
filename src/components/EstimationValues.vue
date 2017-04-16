@@ -13,10 +13,12 @@
     props: ['estimation'],
     computed: {
       precise () {
-        return this.estimation.items.map(item => item.value).reduce((a, b) => a + b, 0)
+        return this.estimation.items
+          .map(item => [item.value, item.quantity || 1])
+          .reduce((accum, [value, quantity]) => accum + value * quantity, 0)
       },
       buffer () {
-        let count = this.estimation.items.length
+        let count = this.estimation.items.map(item => item.quantity || 1).reduce((a, b) => a + b, 0)
         return this.precise / Math.sqrt(count)
       },
       sum () {
