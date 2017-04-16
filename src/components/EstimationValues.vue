@@ -14,7 +14,7 @@
     computed: {
       precise () {
         return this.estimation.items
-          .map(item => [item.value, item.quantity || 1])
+          .map(item => [item.value || 0, item.quantity || 1])
           .reduce((accum, [value, quantity]) => accum + value * quantity, 0)
       },
       buffer () {
