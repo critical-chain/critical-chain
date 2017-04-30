@@ -59,6 +59,7 @@
       },
       cancelEditing () {
         this.$store.dispatch('STOP_ITEM_EDITING', this.item)
+        this.edit = { title: this.item.title || '', value: this.item.value || 0, quantity: this.item.quantity || 1 }
       },
       conditionalCancel () {
         setTimeout(() => {

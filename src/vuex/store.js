@@ -35,7 +35,7 @@ const mutations = {
     state.estimations = estimations
   },
   MARK_AS_LOADED (state) {
-    state.loaded = true
+    Vue.set(state, 'loaded', true)
   },
   ALREADY_LOADED () {
   },
@@ -43,7 +43,7 @@ const mutations = {
     estimation.items.push(item)
   },
   DELETE_ESTIMATION_ITEM ({estimations}, item) {
-    item.isEditing = false
+    Vue.set(item, 'isEditing', false)
     let items = estimations.find(e => e.id === item.estimationId).items
     let index = items.indexOf(item)
     items.splice(index, 1)
