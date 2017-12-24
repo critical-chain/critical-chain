@@ -13,6 +13,21 @@ module.exports = {
       .waitForElementVisible('#app', 5000)
       .assert.elementPresent('.columns')
       .assert.containsText('h3', 'This is a blank slate')
-      .end()
+      .end();
+  },
+
+  'should add edtimation': function(browser) {
+    const devServer = browser.globals.devServerURL
+
+    browser
+      .url(devServer)
+      .waitForElementVisible('#app', 5000);
+
+    browser.expect.elementActive().to.be.a('#new-estimation-title');
+    browser.setValue('#new-estimation-title', 'Shopping list');
+    browser.click('button[title="Add estimation"]');
+    browser.expect.element('.menu-heading').text.to.eq('Shopping list');
+
+    browser.end();
   }
 }

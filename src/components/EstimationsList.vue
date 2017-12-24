@@ -14,7 +14,7 @@
 
     <div class="clearfix row">
       <div class="input-group float-right">
-        <input class="form-control input-lg" type="text" placeholder="New estimation title" autofocus
+        <input id="new-estimation-title" class="form-control input-lg" type="text" placeholder="New estimation title" autofocus
                v-focus.lazy="true"
                v-model="newEstimationTitle" @keyup.enter="addEstimation(newEstimationTitle)">
         <button class="btn btn-primary"
