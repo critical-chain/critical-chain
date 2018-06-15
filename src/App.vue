@@ -1,25 +1,25 @@
 <template>
-  <!-- Don't drop "q-app" class -->
   <div id="q-app">
-    <router-view v-if="loaded"></router-view>
-    <spinner v-else></spinner>
+    <router-view v-if="loaded"/>
+    <spinner v-else/>
   </div>
 </template>
 
 <script>
-import EstimationsList from './components/EstimationsList'
+import EstimationsList from "./components/EstimationsList";
 
 export default {
-  name: 'app',
+  name: "App",
   components: {
     EstimationsList
   },
   computed: {
     loaded () {
-      return this.$store.state.loaded
+      return this.$store.state.loaded;
     }
   }
-}
+};
 </script>
 
-<style></style>
+<style>
+</style>

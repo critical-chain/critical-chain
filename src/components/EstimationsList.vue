@@ -1,6 +1,8 @@
 <template>
   <q-layout>
-    <div slot="header" class="toolbar">
+    <div
+      slot="header"
+      class="toolbar">
       <q-toolbar-title :padding="1">
         CriticalChain Estimator
       </q-toolbar-title>
@@ -11,19 +13,31 @@
         <div class="row justify-center">
           <div class="width-4of5 gt-md-width-3of5">
             <div class="card">
-              <div class="blankslate" v-if="empty">
+              <div
+                v-if="empty"
+                class="blankslate">
                 <h3>This is a blank slate</h3>
                 <p>Use it to provide information when no dynamic content exists.</p>
               </div>
 
-              <div class="list highlight item-delimiter" v-else>
-                <div class="item two-lines" v-for="estimation in estimations">
-                  <router-link :to="{ name: 'estimation', params: {id: estimation.id}}" tag="div" class="item-content">
-                    <div>{{estimation.title}}</div>
+              <div
+                v-else
+                class="list highlight item-delimiter">
+                <div
+                  v-for="estimation in estimations"
+                  :key="estimation.id"
+                  class="item two-lines">
+                  <router-link
+                    :to="{ name: 'estimation', params: {id: estimation.id}}"
+                    tag="div"
+                    class="item-content">
+                    <div>{{ estimation.title }}</div>
                     <estimation-values :estimation="estimation"/>
 
                   </router-link>
-                  <i class="item-secondary" @click="deleteEstimation(estimation)">delete</i>
+                  <i
+                    class="item-secondary"
+                    @click="deleteEstimation(estimation)">delete</i>
                 </div>
               </div>
             </div>
@@ -31,18 +45,22 @@
         </div>
 
         <div class="reverse-row">
-          <div class="width-1of5 gt-md"></div>
+          <div class="width-1of5 gt-md"/>
           <div class="row no-wrap">
             <div class="stacked-label self-stretch">
-              <input autofocus v-focus.lazy="true"
-                     v-model="newEstimationTitle" @keyup.enter="addEstimation(newEstimationTitle)">
+              <input
+                v-focus.lazy="true"
+                v-model="newEstimationTitle"
+                autofocus
+                @keyup.enter="addEstimation(newEstimationTitle)">
               <label>New estimation title</label>
             </div>
             <div>
-              <button class="primary circular"
-                      @click="addEstimation(newEstimationTitle)"
-                      :disabled="addDisabled"
-                      title="Add estimation">
+              <button
+                :disabled="addDisabled"
+                class="primary circular"
+                title="Add estimation"
+                @click="addEstimation(newEstimationTitle)">
                 <i>add</i>
               </button>
             </div>
@@ -54,39 +72,41 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
-  import {focus} from 'vue-focus'
+import { mapGetters } from "vuex";
+import { focus } from "vue-focus";
 
-  import EstimationValues from './EstimationValues'
+import EstimationValues from "./EstimationValues";
 
-  export default {
-    data: () => {
-      return {newEstimationTitle: ''}
+export default {
+  components: { EstimationValues },
+  directives: { focus },
+  data: () => {
+    return { newEstimationTitle: "" };
+  },
+  computed: {
+    ...mapGetters({
+      estimations: "listEstimations"
+    }),
+    empty () {
+      return this.estimations.length === 0;
     },
-    components: { EstimationValues },
-    directives: {focus},
-    computed: {
-      ...mapGetters({
-        estimations: 'listEstimations'
-      }),
-      empty () {
-        return this.estimations.length === 0
-      },
-      addDisabled () {
-        return ((typeof this.newEstimationTitle !== 'string') || (this.newEstimationTitle.length === 0))
+    addDisabled () {
+      return (
+        typeof this.newEstimationTitle !== "string" ||
+        this.newEstimationTitle.length === 0
+      );
+    }
+  },
+  methods: {
+    addEstimation (title) {
+      if (typeof title === "string" && title.length > 0) {
+        this.$store.dispatch("ADD_ESTIMATION", { title });
+        this.newEstimationTitle = "";
       }
     },
-    methods: {
-      addEstimation (title) {
-        if ((typeof title === 'string') && (title.length > 0)) {
-          this.$store.dispatch('ADD_ESTIMATION', {title})
-          this.newEstimationTitle = ''
-        }
-      },
-      deleteEstimation (estimation) {
-        this.$store.dispatch('DELETE_ESTIMATION', estimation)
-      }
+    deleteEstimation (estimation) {
+      this.$store.dispatch("DELETE_ESTIMATION", estimation);
     }
   }
+};
 </script>
-
